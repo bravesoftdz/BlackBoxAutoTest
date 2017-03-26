@@ -1,0 +1,42 @@
+unit AudioOutUnit;
+
+interface
+
+uses
+  Classes;
+
+type
+  AudioOut = class(TThread)
+  private
+    { Private declarations }
+  protected
+    procedure Execute; override;
+  end;
+var
+  Tone:Integer;
+implementation
+
+uses
+  DTMFUnit;
+
+{ Important: Methods and properties of objects in visual components can only be
+  used in a method called using Synchronize, for example,
+
+      Synchronize(UpdateCaption);
+
+  and UpdateCaption could look like,
+
+    procedure AudioOut.UpdateCaption;
+    begin
+      Form1.Caption := 'Updated in a thread';
+    end; }
+
+{ AudioOut }
+
+procedure AudioOut.Execute;
+begin
+ FreeOnTerminate := True;
+ DTMFOut(Tone,100);
+end;
+
+end.

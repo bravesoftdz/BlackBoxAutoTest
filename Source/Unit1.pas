@@ -650,7 +650,8 @@ begin
 'procedure SaveToIMG(SavePath:string);'  + #13#10 +
 'procedure AudioSave(path: string; MSecs: Integer);'  + #13#10 +
 'function AudioCompare(AudHash: string): Single;'    + #13#10 +
-'procedure SendMail(Email: string; Subject : string; Body : string);'
+'procedure SendMail(Email: string; Subject : string; Body : string);'   + #13#10 +
+'function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer; ∑µªÿ»À¡≥ ˝'
 );
 end;
 end;

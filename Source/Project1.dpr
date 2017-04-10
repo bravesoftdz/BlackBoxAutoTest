@@ -29,7 +29,8 @@ uses
   AudioOutUnit in 'AudioOutUnit.pas',
   SetComTHUnit in 'SetComTHUnit.pas',
   RoboticArmUnit in 'RoboticArmUnit.pas' {RoboticARMForm},
-  AutoSaveUnit in 'AutoSaveUnit.pas' {autoSaveForm};
+  AutoSaveUnit in 'AutoSaveUnit.pas' {autoSaveForm},
+  facedetectUnit in 'facedetectUnit.pas';
 
 {$R *.res}
 

@@ -30,7 +30,7 @@ uses
   jpeg, math, PComm, android, DeviceComunicationLog, CoolTrayIcon,
   DeviceLog, LogTh, PerlRegEx, audioSetting, Bass, AudioOutUnit, CardSet,IdSSLOpenSSL,IdIOHandlerSocket,
   IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP,
-  IdMessage, IdComponent, IdIOHandler, AutoSaveUnit;
+  IdMessage, IdComponent, IdIOHandler, AutoSaveUnit, facedetectUnit;
 { Important: Methods and properties of objects in visual components can only be
   used in a method called using Synchronize, for example,
 
@@ -1961,6 +1961,60 @@ begin
   MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'Similar: ' + floattostr(1 - (HashRsut / 256)));
 end;
 
+function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer;
+  //QRcode解码
+var
+  socbmp: TBitmap;
+  ImgPath: string;
+  QRPicPath: string;
+  QRresult: Integer;
+  SrcRect: TRect; //截取图片的坐标
+  bmp: TBitmap;
+  del: Integer;
+  i: Integer;
+begin
+
+  Result := 0;
+  MainForm.mmo1.Lines.Add('Start:' + FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ',
+    now) + #13#10 + 'FaceDetect');
+  for i := 1 to 3 do
+  begin
+    try
+      ImgPath := APPpath + 'IMG\' + FormatDateTime('yyyymmdd_hhmmss_zzz', now) +
+        '_' + inttostr(cameraID) + '.bmp'; //解码的图片
+      SocBMP := CMSnapShotMem(cameraID); //图像抓拍，内存中
+
+      QRPicPath := Copy(ImgPath, 1, Length(ImgPath) - 4) + '_FaceDetect.bmp';
+      SrcRect := Rect(X1, Y1, X2, Y2); //截取坐标
+      DwrRect := Rect(X1 div 2, Y1 div 2, X2 div 2, Y2 div 2); //截取的区域坐标
+      bmp := Capture(SocBMP, SrcRect); //截取图片 ，内存中
+      CameraSetForm.image1.Picture.Bitmap.Assign(bmp); //显示截取的图片
+      bmp.SaveToFile(QRPicPath); //保存截取的图片
+      //QRresult := DecodeFile(QRPicPath);
+     QRresult := facedetect_frontal(PChar(QRPicPath), 1.2, 3, 24, 0);
+
+      if QRresult > 0  then
+      begin
+        // MainForm.mmo1.Lines.Add('返回:' + QRresult + ' 检测OK');
+         //  DeleteBMPFile(ImgPath);
+          // DeleteBMPFile(QRPicPath);
+        Result := QRresult;
+      end;
+
+      DeleteBMPFile(QRPicPath); //检测成功，删除文件
+    finally
+      bmp.Free; //释放内存
+      SocBMP.free;
+    end;
+    MainForm.mmo1.Lines.Add('第 ' + IntToStr(i) + ' 次检测结果: ' +IntToStr( QRresult));
+    if Result > 0 then
+      Break;
+    del := RandomRange(300, 3000 + 1);
+    Delayms(del);
+    MainForm.mmo1.Lines.Add('延时: ' + IntToStr(del) + ' ms 重新检测');
+  end;
+end;
+
 procedure PascalScript.Execute;
 var
   i: Integer;
@@ -2126,5 +2180,6 @@ initialization
   RegisterHeader(0, 'procedure AudioSave(path: string; MSecs: Integer);', @AudioSave);
   RegisterHeader(0, 'function AudioCompare(AudHash: string): Single;', @AudioCompare);
   RegisterHeader(0, 'procedure SendMail(Email: string; Subject : string; Body : string);', @SendMail);
+  RegisterHeader(0, 'function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer;', @FaceDetect);
 end.
 

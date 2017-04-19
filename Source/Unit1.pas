@@ -96,6 +96,7 @@ type
     IdSMTP1: TIdSMTP;
     N5: TMenuItem;
     N6: TMenuItem;
+    mniadb1: TMenuItem;
     procedure MeuAbutClick(Sender: TObject);
     procedure MeuCameraSetClick(Sender: TObject);
     procedure MeuLogClick(Sender: TObject);
@@ -135,6 +136,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure N5Click(Sender: TObject);
     procedure N6Click(Sender: TObject);
+    procedure mniadb1Click(Sender: TObject);
   private
     { Private declarations }
     TestResult: Boolean; //测试结果
@@ -159,7 +161,7 @@ uses
   PComm, ReadComThread, ExGlobal, ComRead2, WriteCom, CameraSetUnit, About,
   Config, DeviceLog, QRcodeUnit, OCRUnit, CardSet,
   testcase, DTMFUnit, IMPORT_SysUtils, RunPASScript,// MultInst,
-  audioSetting,Bass, SetComTHUnit, RoboticArmUnit, AutoSaveUnit;
+  audioSetting,Bass, SetComTHUnit, RoboticArmUnit, AutoSaveUnit, adbunit;
 
 {$R *.dfm}
 
@@ -559,7 +561,8 @@ procedure TMainForm.mniandroid1Click(Sender: TObject);
 var
   CMDOut: string;
 begin
-  CMDOut := GetDosOutput(Apppath + 'lib\adb.exe devices');
+ // CMDOut := GetDosOutput(Apppath + 'lib\adb.exe devices');
+  CMDOut := GetDosOutput(ADBpath+' devices');
   MainForm.mmo1.Lines.add(CMDOut);
 end;
 
@@ -570,7 +573,7 @@ begin
   dlgOpenAPK.Filter := 'APK文件(*.apk)|*.apk';
   if dlgOpenAPK.Execute then
   begin
-    CMDOut := GetDosOutput(Apppath + 'lib\adb.exe install -r ' + dlgOpenAPK.FileName);
+    CMDOut := GetDosOutput(ADBpath+' install -r ' + dlgOpenAPK.FileName);
     MainForm.mmo1.Lines.add(CMDOut);
   end;
 end;
@@ -728,6 +731,11 @@ end;
 procedure TMainForm.N6Click(Sender: TObject);
 begin
   autosaveform.ShowModal;
+end;
+
+procedure TMainForm.mniadb1Click(Sender: TObject);
+begin
+  adbsetform.show;
 end;
 
 end.

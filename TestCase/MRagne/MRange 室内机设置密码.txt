@@ -1,0 +1,35 @@
+ {
+ 给围墙机设置单元01-60存在一户相同的密码 
+ }
+uses SysUtils;
+const
+  com = 13;
+var
+ s1:string;
+ s2:string;
+ s3:string;
+ s5:string = '0123456789ABCDEF' ;
+ i,j:integer;
+ sdata:string;
+ temp:string;
+begin
+  s1:= '55FF460F0002FF';
+  s2:='01FA950201789FFFFF';
+  s3:='';
+  for i:=1 to 4 do
+  begin
+    //s3 :=s5[i];
+    temp:=s5[i];
+    for j:=2 to 16 do
+    begin
+      s3:=temp + s5[j];
+      print( s3 );
+      SData := S1+S3+S2;
+      print( SData );
+ //   SData := '55 FF 46 0F 00 02 FF 11 01 FA 95 02 01 78 9F FF FF';
+      SendCmd(Com,SData,'');   
+      delay(800);            
+    end;
+    temp:='';
+  end;
+end.

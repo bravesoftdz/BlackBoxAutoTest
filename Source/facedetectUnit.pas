@@ -12,6 +12,6 @@ var
 begin
    P:=  facedetect_frontal_extern (imagepath, scale, min_neighbors, min_size, max_size) ;
   Result:=(P^) ;
-end;
+end;   
 
 end.

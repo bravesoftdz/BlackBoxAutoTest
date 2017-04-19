@@ -1,0 +1,6 @@
+begin
+  keypress('1',100,100);
+  audiorecord('C:\ASI15\Ring',5000);
+  //delay(26000);
+  keypress('4',100,10000);
+end.

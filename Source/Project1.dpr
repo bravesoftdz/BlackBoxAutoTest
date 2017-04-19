@@ -30,7 +30,8 @@ uses
   SetComTHUnit in 'SetComTHUnit.pas',
   RoboticArmUnit in 'RoboticArmUnit.pas' {RoboticARMForm},
   AutoSaveUnit in 'AutoSaveUnit.pas' {autoSaveForm},
-  facedetectUnit in 'facedetectUnit.pas';
+  facedetectUnit in 'facedetectUnit.pas',
+  adbunit in 'adbunit.pas' {AdbSetForm};
 
 {$R *.res}
 
@@ -51,5 +52,6 @@ begin
   Application.CreateForm(TAudioSettingsForm, AudioSettingsForm);
   Application.CreateForm(TRoboticARMForm, RoboticARMForm);
   Application.CreateForm(TautoSaveForm, autoSaveForm);
+  Application.CreateForm(TAdbSetForm, AdbSetForm);
   Application.Run;
 end.

@@ -1,0 +1,6 @@
+begin
+  keypress('1',100,5000);
+  snapshot(1,'C:\ASI15\a');
+  keypress('4',100,5000);
+  snapshot(1,'C:\ASI15\b');  
+end.

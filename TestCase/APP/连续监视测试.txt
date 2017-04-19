@@ -1,0 +1,9 @@
+const
+ OS1Button = '373,266';
+ talkButton = '160,1188';
+begin
+ android_Tap(OS1Button);
+ delay(100000);
+ android_Tap(talkButton);
+ Android_ScreenCAP('welcomeAPP');  
+end.

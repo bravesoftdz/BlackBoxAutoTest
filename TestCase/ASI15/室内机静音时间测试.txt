@@ -1,0 +1,9 @@
+begin
+  keypress('1',500,100);
+  SetWavSavePath('c:\asi15\v'); 
+  AudioRecord(3000);  
+ if  GetAudioLevel() > 73741823 then
+   TestPause();   
+   
+ Delay(1000);  
+end.

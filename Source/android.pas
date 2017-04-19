@@ -9,7 +9,8 @@ implementation
 
 uses
   TypInfo, Windows, Graphics, SysUtils, Forms, Dialogs, DSPack, ExGlobal, Unit1,
-  CameraSetUnit, QRcodeUnit, OCRUnit, PaxRegister, IMPORT_Common, DTMFUnit, jpeg, math, PComm, Classes;
+  CameraSetUnit, QRcodeUnit, OCRUnit, PaxRegister, IMPORT_Common, DTMFUnit, jpeg, math, PComm, Classes, 
+  adbunit;
 
 function Android_ScreenCAP(Path: string): Boolean;
 var
@@ -34,10 +35,10 @@ begin
   FileName := FormatDateTime('yyyymmddhhmmsszzz', now) + '.png';
   path := Path + '\' + FileName;
   MainForm.mmo1.Lines.Add('SnapShot ' + path);
-  GetDosOutput(Apppath + 'lib\adb.exe shell screencap -p /sdcard/' + FileName);
-  CMDOut := GetDosOutput(Apppath + 'lib\adb.exe pull /sdcard/' + FileName + ' ' + path);
+  GetDosOutput(ADBpath+' shell screencap -p /sdcard/' + FileName);
+  CMDOut := GetDosOutput(ADBpath+' pull /sdcard/' + FileName + ' ' + path);
   MainForm.mmo1.Lines.add(CMDOut);
-  GetDosOutput(Apppath + 'lib\adb.exe shell rm /sdcard/' + FileName);
+  GetDosOutput(ADBpath+' shell rm /sdcard/' + FileName);
   if FileExists(path) then
     Result := True
   else
@@ -62,7 +63,7 @@ begin
   end;
   x := xy.Strings[0];
   y := xy.Strings[1];
-  CMDOut := GetDosOutput(Apppath + 'lib\adb.exe shell input tap ' + x + ' ' + y);
+  CMDOut := GetDosOutput(ADBpath+' shell input tap ' + x + ' ' + y);
   MainForm.mmo1.Lines.add(CMDOut);
 
   xy.Free;
@@ -92,7 +93,7 @@ begin
   y1 := xy.Strings[1];
   x2 := xy.Strings[2];
   y2 := xy.Strings[3];
-  CMDOut := GetDosOutput(Apppath + 'lib\adb.exe shell input swipe ' + x1 + ' ' + y1 +' '+ x2 + ' ' + y2 + ' '+inttostr(time) );
+  CMDOut := GetDosOutput(ADBpath+' shell input swipe ' + x1 + ' ' + y1 +' '+ x2 + ' ' + y2 + ' '+inttostr(time) );
   MainForm.mmo1.Lines.add(CMDOut);
 
   xy.Free;

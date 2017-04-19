@@ -1,0 +1,20 @@
+const
+  Talk ='55 ff 44 30 00 01 01 00 0e 01 02 03 fd 1f 03 0b';    //03 0B通话键 
+  CALLSMD ='55FF0401109920090000119900'; 
+  HKSMD = '55FF0102109920092500';
+  Unlock = '55 ff 44 30 00 01 01 00 0e 01 02 03 fd 1f 04 f7'; // 04 F7 开锁
+  Light ='55 ff 44 30 00 01 01 00 0e 01 02 03 fd 1f 05 09'; //  05 09 开灯
+  Mute = '55 ff 44 30 00 01 01 00 0e 01 02 03 fd 1f 06 08'; //  06 08静音
+  Tap_Survillance = '55 ff 48 30 00 01 01 00 0e 01 1d 03 fd 1f 00  01 65 01 e8 05';//点击监视图标 
+  var
+  T:integer;
+begin
+  t:= rand(10,100);
+  SendCmd(7,CALLSMD,''); 
+  DELAY(t); 
+  SendCmd(7,CALLSMD,'');   
+  t:= rand(10,100);  
+  SendCmd(7,HKSMD,'');  
+  DELAY(t);     
+    
+end.

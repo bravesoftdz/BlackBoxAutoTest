@@ -1,0 +1,9 @@
+begin
+  keypress('1',100,10000);
+  if LogFind('Initial RTC') then
+  begin
+    print('ERR');
+    fail:=fail+1;
+    TestPause(); 
+  end;
+end.

@@ -1991,7 +1991,7 @@ begin
       CameraSetForm.image1.Picture.Bitmap.Assign(bmp); //显示截取的图片
       bmp.SaveToFile(QRPicPath); //保存截取的图片
       //QRresult := DecodeFile(QRPicPath);
-     QRresult := facedetect_frontal(PChar(QRPicPath), 1.2, 3, 24, 0);
+      QRresult := facedetect_frontal(PChar(QRPicPath), 1.2, 3, 24, 0);
 
       if QRresult > 0  then
       begin

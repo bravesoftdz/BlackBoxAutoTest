@@ -1,6 +1,6 @@
 object MainForm: TMainForm
-  Left = 150
-  Top = 254
+  Left = 287
+  Top = 120
   Width = 1024
   Height = 769
   Caption = #40657#30418#33258#21160#21270#27979#35797#31995#32479
@@ -37,7 +37,7 @@ object MainForm: TMainForm
   object tlb1: TToolBar
     Left = 0
     Top = 0
-    Width = 1008
+    Width = 1016
     Height = 49
     ButtonHeight = 38
     ButtonWidth = 47
@@ -176,8 +176,8 @@ object MainForm: TMainForm
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 692
-    Width = 1008
+    Top = 699
+    Width = 1016
     Height = 19
     Panels = <
       item
@@ -200,8 +200,8 @@ object MainForm: TMainForm
   end
   object grp1: TGroupBox
     Left = 0
-    Top = 537
-    Width = 1008
+    Top = 544
+    Width = 1016
     Height = 155
     Align = alBottom
     Caption = #20449#24687#36755#20986
@@ -209,7 +209,7 @@ object MainForm: TMainForm
     object pgc1: TPageControl
       Left = 2
       Top = 15
-      Width = 1004
+      Width = 1012
       Height = 138
       ActivePage = ts2
       Align = alClient
@@ -232,7 +232,7 @@ object MainForm: TMainForm
         object mmo1: TMemo
           Left = 0
           Top = 0
-          Width = 996
+          Width = 1004
           Height = 110
           Align = alClient
           Lines.Strings = (
@@ -247,7 +247,7 @@ object MainForm: TMainForm
     Left = 0
     Top = 49
     Width = 209
-    Height = 488
+    Height = 495
     Align = alLeft
     Caption = #25991#20214#21015#34920
     TabOrder = 4
@@ -255,7 +255,7 @@ object MainForm: TMainForm
       Left = 2
       Top = 15
       Width = 205
-      Height = 471
+      Height = 478
       ActivePage = ts3
       Align = alClient
       TabOrder = 0
@@ -265,7 +265,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 0
           Width = 197
-          Height = 443
+          Height = 450
           Align = alClient
           Indent = 19
           ReadOnly = True
@@ -317,7 +317,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 0
           Width = 197
-          Height = 443
+          Height = 450
           Align = alClient
           ItemHeight = 13
           TabOrder = 0
@@ -329,16 +329,16 @@ object MainForm: TMainForm
   object grp3: TGroupBox
     Left = 209
     Top = 49
-    Width = 799
-    Height = 488
+    Width = 807
+    Height = 495
     Align = alClient
     Caption = #20195#30721#32534#36753
     TabOrder = 5
     object SynMemo1: TSynMemo
       Left = 2
       Top = 15
-      Width = 795
-      Height = 471
+      Width = 803
+      Height = 478
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -450,6 +450,10 @@ object MainForm: TMainForm
         Caption = #26368#23567#21270#21040#25176#30424
         OnClick = mniN7Click
       end
+      object mniadb1: TMenuItem
+        Caption = 'adb'#35774#32622
+        OnClick = mniadb1Click
+      end
     end
     object mniN5: TMenuItem
       Caption = #29992#20363#31649#29702
@@ -479,10 +483,6 @@ object MainForm: TMainForm
       object MeuLog: TMenuItem
         Caption = #26085#24535#35760#24405
         OnClick = MeuLogClick
-      end
-      object mniadb1: TMenuItem
-        Caption = 'adb'#35774#32622
-        OnClick = mniadb1Click
       end
     end
     object MeuHelp: TMenuItem

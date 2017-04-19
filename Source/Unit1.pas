@@ -195,6 +195,7 @@ begin
   refreshComList;
   mmo1.Text := '';
   mmo2.Text := '';
+  ADBpath:=Apppath + 'lib\adb.exe';
   SwitchMenu();
    TrayIcon1.IconVisible:=True;
   TrayIcon1.Icon :=Application.Icon;

@@ -13,6 +13,7 @@ type
     lbl1: TLabel;
     btn1: TButton;
     procedure btn1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,6 +38,11 @@ begin
     ADBpath := dlgOpen1.FileName;
     edt1.Text :=ADBpath;
   end;
+end;
+
+procedure TAdbSetForm.FormCreate(Sender: TObject);
+begin
+   edt1.Text :=ADBpath;
 end;
 
 end.

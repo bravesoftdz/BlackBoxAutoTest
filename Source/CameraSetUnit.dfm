@@ -101,8 +101,8 @@ object CameraSetForm: TCameraSetForm
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 691
-    Width = 1008
+    Top = 698
+    Width = 1016
     Height = 19
     Panels = <>
   end

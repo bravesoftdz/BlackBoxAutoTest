@@ -17,7 +17,7 @@ type
 implementation
 
 uses
-  DeviceLog, ExGlobal;
+  DeviceLog, ExGlobal, U_Main;
 
 { Important: Methods and properties of objects in visual components can only be
   used in a method called using Synchronize, for example,
@@ -41,7 +41,9 @@ begin
     3: LogForm.Memo1.Lines.SaveToFile(LogPath);
     4: LogForm.Memo2.Lines.SaveToFile(LogPath);
     5: LogTxt := LogForm.Memo1.Lines.Text;
-    6: LogTxt := LogForm.Memo2.Lines.Text;    
+    6: LogTxt := LogForm.Memo2.Lines.Text;
+    7: rec(CapFName);
+    8: stopREC();
   end;
   LogFlag:=0;
   LogPath:='';

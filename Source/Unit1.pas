@@ -97,6 +97,7 @@ type
     N5: TMenuItem;
     N6: TMenuItem;
     mniadb1: TMenuItem;
+    N7: TMenuItem;
     procedure MeuAbutClick(Sender: TObject);
     procedure MeuCameraSetClick(Sender: TObject);
     procedure MeuLogClick(Sender: TObject);
@@ -137,6 +138,7 @@ type
     procedure N5Click(Sender: TObject);
     procedure N6Click(Sender: TObject);
     procedure mniadb1Click(Sender: TObject);
+    procedure N7Click(Sender: TObject);
   private
     { Private declarations }
     TestResult: Boolean; //²âÊÔ½á¹û
@@ -161,7 +163,8 @@ uses
   PComm, ReadComThread, ExGlobal, ComRead2, WriteCom, CameraSetUnit, About,
   Config, DeviceLog, QRcodeUnit, OCRUnit, CardSet,
   testcase, DTMFUnit, IMPORT_SysUtils, RunPASScript,// MultInst,
-  audioSetting,Bass, SetComTHUnit, RoboticArmUnit, AutoSaveUnit, adbunit;
+  audioSetting,Bass, SetComTHUnit, RoboticArmUnit, AutoSaveUnit, adbunit, 
+  U_Main;
 
 {$R *.dfm}
 
@@ -624,6 +627,8 @@ begin
 'function IO(IO1,IO2,IO3,IO4:Integer): Boolean;    '    + #13#10 +
 'function Ring(R1, R2: Integer): Boolean       '    + #13#10 +
 'function GetAveHSV(CameraID:Integer;x1,y1,x2,y2:Integer;HSV:string): Boolean;   '    + #13#10 +
+'function GetAveRGB(CameraID: Integer; x1, y1, x2, y2: Integer; RGB: string):Boolean;'  + #13#10 +
+'function GetRGB(CameraID: Integer; x, y: Integer; RGB: string):Boolean;'     + #13#10 +
 'function WaitUntilRing(R1, R2: Integer; MSecs: Longint): Boolean;   '    + #13#10 +
 'function WaitUnlock(IO1, IO2,IO3,IO4: Integer; MSecs: Longint): Boolean;  '    + #13#10 +
 'function Talking(Channel, Direction: Integer): Boolean;  '    + #13#10 +
@@ -737,6 +742,11 @@ end;
 procedure TMainForm.mniadb1Click(Sender: TObject);
 begin
   adbsetform.show;
+end;
+
+procedure TMainForm.N7Click(Sender: TObject);
+begin
+  Video_frm_Main.show;
 end;
 
 end.

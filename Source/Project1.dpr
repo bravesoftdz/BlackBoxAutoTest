@@ -31,7 +31,10 @@ uses
   RoboticArmUnit in 'RoboticArmUnit.pas' {RoboticARMForm},
   AutoSaveUnit in 'AutoSaveUnit.pas' {autoSaveForm},
   facedetectUnit in 'facedetectUnit.pas',
-  adbunit in 'adbunit.pas' {AdbSetForm};
+  adbunit in 'adbunit.pas' {AdbSetForm},
+  TestingVideoUnit in 'TestingVideoUnit.pas' {Form2},
+  U_Main in 'U_Main.pas' {Video_frm_Main},
+  U_Option in 'U_Option.pas' {frm_Option};
 
 {$R *.res}
 
@@ -53,5 +56,8 @@ begin
   Application.CreateForm(TRoboticARMForm, RoboticARMForm);
   Application.CreateForm(TautoSaveForm, autoSaveForm);
   Application.CreateForm(TAdbSetForm, AdbSetForm);
+  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TVideo_frm_Main, Video_frm_Main);
+  Application.CreateForm(Tfrm_Option, frm_Option);
   Application.Run;
 end.

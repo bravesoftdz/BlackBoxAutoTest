@@ -484,6 +484,10 @@ object MainForm: TMainForm
         Caption = #26085#24535#35760#24405
         OnClick = MeuLogClick
       end
+      object N7: TMenuItem
+        Caption = #27979#35797#24405#20687
+        OnClick = N7Click
+      end
     end
     object MeuHelp: TMenuItem
       Caption = #24110#21161

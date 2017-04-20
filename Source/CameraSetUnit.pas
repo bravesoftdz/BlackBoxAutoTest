@@ -121,6 +121,7 @@ procedure VMRRect(VideoWindow: TVideoWindow; Rt: TRect);
 procedure ruihua(bmp: TBitmap); //图片锐化
 procedure BMPbinary(Bmp: TBitmap); //图片二值化
 function GetAveRGBFunc(bmp: TBitmap; Rt: TRect): TRGBColor;
+function GetColorFunc(bmp: TBitmap; x, y: integer): TRGBColor;
 function RGBToHSV(rgb: TRGBColor): THSBColor;
 function Imageresize(bmp: TBitmap;Imwidth:Integer;Imheight: Integer): TBitmap;
 function BitStrToHextStr(const BitStr: string): string;

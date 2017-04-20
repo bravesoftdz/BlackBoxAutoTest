@@ -30,7 +30,7 @@ uses
   jpeg, math, PComm, android, DeviceComunicationLog, CoolTrayIcon,
   DeviceLog, LogTh, PerlRegEx, audioSetting, Bass, AudioOutUnit, CardSet,IdSSLOpenSSL,IdIOHandlerSocket,
   IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP,
-  IdMessage, IdComponent, IdIOHandler, AutoSaveUnit, facedetectUnit;
+  IdMessage, IdComponent, IdIOHandler, AutoSaveUnit, facedetectUnit, U_Main;
 { Important: Methods and properties of objects in visual components can only be
   used in a method called using Synchronize, for example,
 
@@ -990,6 +990,258 @@ begin
           FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
           floattostr(ColorHSV.Hue) + '.' + floattostr(ColorHSV.Saturation) + '.' +
           floattostr(ColorHSV.Brightness));
+    finally
+      ExpColor.Free;
+    end;
+  end;
+end;
+
+function GetAveRGB(CameraID: Integer; x1, y1, x2, y2: Integer; RGB: string):
+  Boolean; //颜色检测，获取范围(x1,y1,x2,y2)HSV颜色的均值
+var
+  socbmp: TBitmap;
+  SrcRect: TRect; //截取图片的坐标
+  ColorRGB: TRGBColor; //颜色RGB
+  ExpColor: TStringList; //预期颜色值
+  DevColor: TStringList; //预期颜色值误差
+  ExpTempColor: TStringList; //预期颜色值临时
+  ColorAL: Integer; //预期最小值，最大值
+  ColorBL: Integer;
+  ColorCL: Integer;
+  ColorAH: Integer;
+  ColorBH: Integer;
+  ColorCH: Integer;
+begin
+  Result := False;
+  MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
+    'Executing: GetAveRGB ');
+  try
+    SocBMP := CMSnapShotMem(CameraID); //图像抓拍，内存中
+    SrcRect := Rect(X1, Y1, X2, y2); //颜色区域
+    DwrRect := Rect(X1 div 2, Y1 div 2, X2 div 2, Y2 div 2);
+    ColorRGB := GetAveRGBFunc(SocBMP, SrcRect);
+  finally
+    SocBMP.Free;
+  end;
+  if Pos('-', RGB) > 0 then // 字符串是否包含-，有则有偏色参数
+  begin
+    try
+      ExpTempColor := SplitString(RGB, '-'); //按'-'分割字符
+      ExpColor := SplitString(ExpTempColor[0], '.');
+      DevColor := SplitString(ExpTempColor[1], '.');
+      if (StrToInt(ExpColor[0]) - StrToInt(DevColor[0])) < 0 then
+        ColorAL := 0
+      else
+        ColorAL := StrToInt(ExpColor[0]) - StrToInt(DevColor[0]);
+      if (StrToInt(ExpColor[1]) - StrToInt(DevColor[1])) < 0 then
+        ColorBL := 0
+      else
+        ColorBL := StrToInt(ExpColor[1]) - StrToInt(DevColor[1]);
+      if (StrToInt(ExpColor[2]) - StrToInt(DevColor[2])) < 0 then
+        ColorCL := 0
+      else
+        ColorCL := StrToInt(ExpColor[2]) - StrToInt(DevColor[2]);
+
+      if (StrToInt(ExpColor[0]) + StrToInt(DevColor[0])) > 255 then
+        ColorAH := 255
+      else
+        ColorAH := StrToInt(ExpColor[0]) + StrToInt(DevColor[0]);
+      if (StrToInt(ExpColor[1]) + StrToInt(DevColor[1])) > 255 then
+        ColorBH := 255
+      else
+        ColorBH := StrToInt(ExpColor[1]) + StrToInt(DevColor[1]);
+      if (StrToInt(ExpColor[2]) + StrToInt(DevColor[2])) > 255 then
+        ColorCH := 255
+      else
+        ColorCH := StrToInt(ExpColor[2]) + StrToInt(DevColor[2]);
+      if (ColorRGB.Red >= ColorAL) and (ColorRGB.Red <= ColorAH) and
+        (ColorRGB.Green >= ColorBL) and (ColorRGB.Green <= ColorBH) and
+        (ColorRGB.Blue >= ColorCL) and (ColorRGB.Blue <= ColorCH)
+        then
+      begin
+        MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now)
+          + '返回：' + floattostr(ColorRGB.Red)
+          + '.' + floattostr(ColorRGB.Green) + '.' +
+          floattostr(ColorRGB.Blue) + '测试OK');
+        Result := True;
+      end
+      else
+        MainForm.mmo1.Lines.Add('[error] ' +
+          FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
+          floattostr(ColorRGB.Red)
+          + '.' + floattostr(ColorRGB.Green) + '.' +
+          floattostr(ColorRGB.Blue));
+    finally
+      ExpTempColor.Free;
+      ExpColor.Free;
+      DevColor.Free;
+    end;
+  end
+  else //颜色不包含偏值参数
+  begin
+    try
+      ExpColor := SplitString(RGB, '.');
+      ColorAL := StrToInt(ExpColor[0]) - Round(StrToInt(ExpColor[0]) * 0.1);
+      if ColorAL < 0 then
+         ColorAL := 0;
+      ColorBL:= StrToInt(ExpColor[1]) - Round(StrToInt(ExpColor[1]) * 0.1);
+      if ColorBL < 0 then
+        ColorBL := 0;
+      ColorCL:= StrToInt(ExpColor[2]) - Round(StrToInt(ExpColor[2]) * 0.1);
+      if ColorCL < 0 then
+        ColorCL := 0;
+
+      ColorAH := StrToInt(ExpColor[0]) + Round(StrToInt(ExpColor[0]) * 0.1);
+      if ColorAH > 255 then
+        ColorAH := 255;
+      ColorBH := StrToInt(ExpColor[1]) + Round(StrToInt(ExpColor[1]) * 0.1);
+      if ColorBH > 255 then
+        ColorBH := 255;
+      ColorCH := StrToInt(ExpColor[2]) + Round(StrToInt(ExpColor[2]) * 0.1);
+      if ColorCH > 255 then
+        ColorCH := 255;
+
+      if (ColorRGB.Red >= ColorAL) and (ColorRGB.Red <= ColorAH) and
+        (ColorRGB.Green >= ColorBL) and (ColorRGB.Green <= ColorBH) and
+        (ColorRGB.Blue >= ColorCL) and (ColorRGB.Blue <= ColorCH)
+        then
+      begin
+        MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now)
+          + '返回：' + floattostr(ColorRGB.Red) + '.' +
+          floattostr(ColorRGB.Green) + '.' + floattostr(ColorRGB.Blue) +
+          '测试OK');
+        Result := True;
+      end
+      else
+        MainForm.mmo1.Lines.Add('[error] ' +
+          FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
+          floattostr(ColorRGB.Red) + '.' + floattostr(ColorRGB.Green) + '.' +
+          floattostr(ColorRGB.Blue));
+    finally
+      ExpColor.Free;
+    end;
+  end;
+end;
+
+function GetRGB(CameraID: Integer; x, y: Integer; RGB: string):
+  Boolean; //颜色检测，获取范围(x1,y1,x2,y2)HSV颜色的均值
+var
+  socbmp: TBitmap;
+  SrcRect: TRect; //截取图片的坐标
+  ColorRGB: TRGBColor; //颜色RGB
+  ExpColor: TStringList; //预期颜色值
+  DevColor: TStringList; //预期颜色值误差
+  ExpTempColor: TStringList; //预期颜色值临时
+  ColorAL: Integer; //预期最小值，最大值
+  ColorBL: Integer;
+  ColorCL: Integer;
+  ColorAH: Integer;
+  ColorBH: Integer;
+  ColorCH: Integer;
+begin
+  Result := False;
+  MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
+    'Executing: GetAveRGB ');
+  try
+    SocBMP := CMSnapShotMem(CameraID); //图像抓拍，内存中
+    ColorRGB := GetColorFunc(SocBMP, X,Y);
+  finally
+    SocBMP.Free;
+  end;
+  if Pos('-', RGB) > 0 then // 字符串是否包含-，有则有偏色参数
+  begin
+    try
+      ExpTempColor := SplitString(RGB, '-'); //按'-'分割字符
+      ExpColor := SplitString(ExpTempColor[0], '.');
+      DevColor := SplitString(ExpTempColor[1], '.');
+      if (StrToInt(ExpColor[0]) - StrToInt(DevColor[0])) < 0 then
+        ColorAL := 0
+      else
+        ColorAL := StrToInt(ExpColor[0]) - StrToInt(DevColor[0]);
+      if (StrToInt(ExpColor[1]) - StrToInt(DevColor[1])) < 0 then
+        ColorBL := 0
+      else
+        ColorBL := StrToInt(ExpColor[1]) - StrToInt(DevColor[1]);
+      if (StrToInt(ExpColor[2]) - StrToInt(DevColor[2])) < 0 then
+        ColorCL := 0
+      else
+        ColorCL := StrToInt(ExpColor[2]) - StrToInt(DevColor[2]);
+
+      if (StrToInt(ExpColor[0]) + StrToInt(DevColor[0])) > 255 then
+        ColorAH := 255
+      else
+        ColorAH := StrToInt(ExpColor[0]) + StrToInt(DevColor[0]);
+      if (StrToInt(ExpColor[1]) + StrToInt(DevColor[1])) > 255 then
+        ColorBH := 255
+      else
+        ColorBH := StrToInt(ExpColor[1]) + StrToInt(DevColor[1]);
+      if (StrToInt(ExpColor[2]) + StrToInt(DevColor[2])) > 255 then
+        ColorCH := 255
+      else
+        ColorCH := StrToInt(ExpColor[2]) + StrToInt(DevColor[2]);
+      if (ColorRGB.Red >= ColorAL) and (ColorRGB.Red <= ColorAH) and
+        (ColorRGB.Green >= ColorBL) and (ColorRGB.Green <= ColorBH) and
+        (ColorRGB.Blue >= ColorCL) and (ColorRGB.Blue <= ColorCH)
+        then
+      begin
+        MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now)
+          + '返回：' + floattostr(ColorRGB.Red)
+          + '.' + floattostr(ColorRGB.Green) + '.' +
+          floattostr(ColorRGB.Blue) + '测试OK');
+        Result := True;
+      end
+      else
+        MainForm.mmo1.Lines.Add('[error] ' +
+          FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
+          floattostr(ColorRGB.Red)
+          + '.' + floattostr(ColorRGB.Green) + '.' +
+          floattostr(ColorRGB.Blue));
+    finally
+      ExpTempColor.Free;
+      ExpColor.Free;
+      DevColor.Free;
+    end;
+  end
+  else //颜色不包含偏值参数
+  begin
+    try
+      ExpColor := SplitString(RGB, '.');
+      ColorAL := StrToInt(ExpColor[0]) - Round(StrToInt(ExpColor[0]) * 0.1);
+      if ColorAL < 0 then
+         ColorAL := 0;
+      ColorBL:= StrToInt(ExpColor[1]) - Round(StrToInt(ExpColor[1]) * 0.1);
+      if ColorBL < 0 then
+        ColorBL := 0;
+      ColorCL:= StrToInt(ExpColor[2]) - Round(StrToInt(ExpColor[2]) * 0.1);
+      if ColorCL < 0 then
+        ColorCL := 0;
+
+      ColorAH := StrToInt(ExpColor[0]) + Round(StrToInt(ExpColor[0]) * 0.1);
+      if ColorAH > 255 then
+        ColorAH := 255;
+      ColorBH := StrToInt(ExpColor[1]) + Round(StrToInt(ExpColor[1]) * 0.1);
+      if ColorBH > 255 then
+        ColorBH := 255;
+      ColorCH := StrToInt(ExpColor[2]) + Round(StrToInt(ExpColor[2]) * 0.1);
+      if ColorCH > 255 then
+        ColorCH := 255;
+
+      if (ColorRGB.Red >= ColorAL) and (ColorRGB.Red <= ColorAH) and
+        (ColorRGB.Green >= ColorBL) and (ColorRGB.Green <= ColorBH) and
+        (ColorRGB.Blue >= ColorCL) and (ColorRGB.Blue <= ColorCH)
+        then
+      begin
+        MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now)
+          + '返回：' + floattostr(ColorRGB.Red) + '.' +
+          floattostr(ColorRGB.Green) + '.' + floattostr(ColorRGB.Blue) +
+          '测试OK');
+        Result := True;
+      end
+      else
+        MainForm.mmo1.Lines.Add('[error] ' +
+          FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
+          floattostr(ColorRGB.Red) + '.' + floattostr(ColorRGB.Green) + '.' +
+          floattostr(ColorRGB.Blue));
     finally
       ExpColor.Free;
     end;
@@ -2015,6 +2267,33 @@ begin
   end;
 end;
 
+procedure TestRecord(path:string);
+begin
+  if not DirectoryExists(Path) then //判断文件夹是否存在，不存在则创建文件夹
+  begin
+    ForceDirectories(Path); //创建文件夹
+    if not DirectoryExists(Path) then //创建文件夹错误，使用默认文件夹
+    begin
+      MainForm.mmo1.Lines.Add('Error: ' + Path + ' 不能创建,使用C:\Video');
+      ForceDirectories('c:\Video'); //创建文件夹
+      Path := 'c:\Video'; //使用默认
+    end;
+  end;
+
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '.avi';
+
+  LogFlag := 7;
+  LogThread.Create(False);
+  CapFName := path;
+end;
+
+procedure StopRecord();
+begin
+  LogFlag := 8;
+  LogThread.Create(False);
+  CapFName := '';
+end;
+
 procedure PascalScript.Execute;
 var
   i: Integer;
@@ -2103,6 +2382,8 @@ begin
   autoSaveForm.tmr1.Enabled:=False;  //自动保存记录
 end;
 
+
+
 initialization
   RegisterHeader(0,
     'function QR(cameraID: Integer;X1,Y1,X2,Y2:Integer; text: string): Boolean;',
@@ -2181,5 +2462,9 @@ initialization
   RegisterHeader(0, 'function AudioCompare(AudHash: string): Single;', @AudioCompare);
   RegisterHeader(0, 'procedure SendMail(Email: string; Subject : string; Body : string);', @SendMail);
   RegisterHeader(0, 'function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer;', @FaceDetect);
+  RegisterHeader(0, 'function GetAveRGB(CameraID: Integer; x1, y1, x2, y2: Integer; RGB: string):Boolean;', @GetAveRGB);
+  RegisterHeader(0, 'function GetRGB(CameraID: Integer; x, y: Integer; RGB: string):Boolean;', @GetRGB);
+  RegisterHeader(0, 'procedure TestRecord(path:string)', @TestRecord);
+  RegisterHeader(0, 'procedure StopRecord();', @StopRecord);
 end.
 

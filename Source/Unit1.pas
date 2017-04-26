@@ -612,56 +612,124 @@ begin
           '注释：按键间隔符",",同时按下的间隔符"|"' + #13#10 +
           '例如：Keypress (''1,2'',200,300);  输入"1,2",Keypress(''2|4'',200,300);  "2,4"同时按下');
       end;
+    1:
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add(
+        'function KeyPress(Keys: string; DownTime: Integer; Interval: Integer): Boolean; 按键  '    + #13#10 +
+        'function KeyDown(Keys: string): Boolean;  按键按下        '    + #13#10 +
+        'function KeyUp(): Boolean;  按键释放  '   );
+      end;
+    2:
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add(
+
+         'function SnapShot(cameraID: Integer; Path: string): Boolean 抓拍图片 '    + #13#10 +
+         'function Photosynth(C1,C2: Integer; Path: string): Boolean; 抓拍图片，2个摄像头同时抓拍 '    + #13#10 +
+         'function QR(cameraID: Integer;X1,Y1,X2,Y2:Integer; text: string): Boolean; QR code 解码'  + #13#10 +
+         'function OCR(CameraID: Integer; X1,Y1,X2,Y2: Integer; Text: string): Boolean; 英文OCR  '    + #13#10 +
+         'function GetAveHSV(CameraID:Integer;x1,y1,x2,y2:Integer;HSV:string): Boolean; 获取区域颜色HSV  '    + #13#10 +
+         'function GetAveRGB(CameraID: Integer; x1, y1, x2, y2: Integer; RGB: string):Boolean; 获取区域颜色RGB'  + #13#10 +
+         'function GetRGB(CameraID: Integer; x, y: Integer; RGB: string):Boolean;获取单点颜色RGB'     + #13#10 +
+         'function ImgSimilar(Camera:Integer;X1,Y1,X2,Y2:Integer; Hash: string;Percent:Real):Boolean; 图片相似度 '    + #13#10 +
+         'function LEDIndn(CameraID: Integer; x1, y1, x2, y2: Integer; HSV: string; MSecs: Integer): Int64; LED亮的时间长度'    + #13#10 +
+         'function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer; 返回人脸数'
+          );
+      end;
+      3:  // 声音
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add
+        (
+        'function Ring(R1, R2: Integer): Boolean  声音检测试    '    + #13#10 +
+        'function WaitUntilRing(R1, R2: Integer; MSecs: Longint): Boolean;  等待振铃 '    + #13#10 +
+        'function Talking(Channel, Direction: Integer): Boolean; 通话检测 '    + #13#10 +
+
+        'procedure SetWavSavePath(Path:string); 设置音频保存路径'  + #13#10 +
+        'function CallingChannel(WAVPayFile:string;AudHash:string;MSecs:Integer):Single; 通话检测'  + #13#10 +
+        'function GetAudioLevel():LongWord; 获取音量' + #13#10 +
+        'function Speaking():Boolean;    '    + #13#10 +
+        'procedure AudioRecord(MSecs:Integer); 录制音频'    + #13#10 +
+        'procedure PlayAudio(path:string); 播放音频 ' + #13#10 +
+        'procedure AudioSave(path: string; MSecs: Integer); 保存音频'  + #13#10 +
+        'function AudioCompare(AudHash: string): Single; 音频对比'    + #13#10 +
+        'procedure SaveToIMG(SavePath:string); 保存成图片'  
+
+        );
+      end;
+      4:  // 开锁、开灯检测
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add
+        (
+          'function IO(IO1,IO2,IO3,IO4:Integer): Boolean; 开锁、开灯等开关信号输出检测 '+ #13#10 +
+          'function WaitUnlock(IO1, IO2,IO3,IO4: Integer; MSecs: Longint): Boolean; 等待开锁、开灯 '
+        );
+      end;
+      5:  // 串口
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add(
+          'function Serial(Com: Integer; sData: string): integer; 串口发送数据(无返回) '    + #13#10 +
+          'function SendCmd(Com: Integer; SData: string;RData: string): Boolean; 串口发送数据,检查返回'
+           );
+      end;
+      6:  // RFID卡
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add(
+        'function Card(cardNum: int64): Boolean; 单张卡'    + #13#10 +
+        'procedure RFIDFMList(); 卡列表注册'
+           );
+      end;
+      7:   //android操作
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add(
+         'function Android_ScreenCAP(Path: string):Boolean; 抓拍 '    + #13#10 +
+         'procedure Android_Tap(Coordinate: string); 点击 '    + #13#10 +
+         'procedure Android_Swipe(Coordinate: string;time:Integer); 滑动 '   );
+      end;
+      8:   //LOG操作
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add(
+          'function CommLogSave(Path: string): Boolean;  串口LOG保存  '    + #13#10 +
+          'procedure CommLogClear(); 串口LOG清空 '    + #13#10 +
+          'function CommLogFind(str: string): Boolean; 串口LOG查找  '    + #13#10 +          
+          'function LogSave(Path: string): Boolean; LOG保存  '    + #13#10 +
+          'procedure LogClear(); LOG清空  '    + #13#10 +
+          'function LogFind(str: string): Boolean;   LOG查找  '    + #13#10 +
+          'procedure LogExtract(str: string;Path:string);  LOG正则匹配 ' 
+           );
+      end;
+       9:   //其它操作
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add(
+       'function Rand(Min:Integer;Max:Integer):integer;  随机数，整型'+#13#10 +
+       'function StrRand(Min:Integer;Max:Integer):string; 随机数，字符串'+ #13#10 +
+       'procedure Delay(ms: Integer);    延时         '    + #13#10 +
+       'procedure TestPause(); 测试暂停 '+ #13#10 +
+       'procedure SendMail(Email: string; Subject : string; Body : string); 发邮件'
+        );
+      end;
   else
     pgc1.ActivePage := ts1;
     mmo2.Clear;
-    MainForm.mmo2.Lines.add(' function QR(cameraID: Integer;X1,Y1,X2,Y2:Integer; text: string): Boolean;'  + #13#10 +
-'function SnapShot(cameraID: Integer; Path: string): Boolean '    + #13#10 +
-'procedure Delay(ms: Integer);                 '    + #13#10 +
-'function OCR(CameraID: Integer; X1,Y1,X2,Y2: Integer; Text: string): Boolean;   '    + #13#10 +
-'function Rand(Min:Integer;Max:Integer):integer;                  '    + #13#10 +
-'function StrRand(Min:Integer;Max:Integer):string;               '    + #13#10 +
-'function KeyPress(Keys: string; DownTime: Integer; Interval: Integer): Boolean;   '    + #13#10 +
-'function KeyDown(Keys: string): Boolean;          '    + #13#10 +
-'function KeyUp(): Boolean;               '    + #13#10 +
-'function IO(IO1,IO2,IO3,IO4:Integer): Boolean;    '    + #13#10 +
-'function Ring(R1, R2: Integer): Boolean       '    + #13#10 +
-'function GetAveHSV(CameraID:Integer;x1,y1,x2,y2:Integer;HSV:string): Boolean;   '    + #13#10 +
-'function GetAveRGB(CameraID: Integer; x1, y1, x2, y2: Integer; RGB: string):Boolean;'  + #13#10 +
-'function GetRGB(CameraID: Integer; x, y: Integer; RGB: string):Boolean;'     + #13#10 +
-'function WaitUntilRing(R1, R2: Integer; MSecs: Longint): Boolean;   '    + #13#10 +
-'function WaitUnlock(IO1, IO2,IO3,IO4: Integer; MSecs: Longint): Boolean;  '    + #13#10 +
-'function Talking(Channel, Direction: Integer): Boolean;  '    + #13#10 +
-'function Photosynth(C1,C2: Integer; Path: string): Boolean;  '    + #13#10 +
-'function ImgSimilar(Camera:Integer;X1,Y1,X2,Y2:Integer; Hash: string;Percent:Real):Boolean;  '    + #13#10 +
-'function LEDIndn(CameraID: Integer; x1, y1, x2, y2: Integer; HSV: string; MSecs: Integer): Int64; '    + #13#10 +
-'function Serial(Com: Integer; sData: string): integer;  '    + #13#10 +
-'function Card(cardNum: int64): Boolean;    '    + #13#10 +
-'function Android_ScreenCAP(Path: string):Boolean;  '    + #13#10 +
-'procedure Android_Tap(Coordinate: string);  '    + #13#10 +
-'procedure Android_Swipe(Coordinate: string;time:Integer);  '    + #13#10 +
-'function CommLogSave(Path: string): Boolean;    '    + #13#10 +
-'function LogSave(Path: string): Boolean;   '    + #13#10 +
-'procedure LogClear();   '    + #13#10 +
-'procedure CommLogClear();  '    + #13#10 +
-'function SendCmd(Com: Integer; SData: string;RData: string): Boolean;  '    + #13#10 +
-'function CommLogFind(str: string): Boolean;   '    + #13#10 +
-'function LogFind(str: string): Boolean;     '    + #13#10 +
-'procedure LogExtract(str: string;Path:string);   '    + #13#10 +
-'function Speaking():Boolean;    '    + #13#10 +
-'procedure TestPause();   '      + #13#10 +
-'procedure AudioRecord(MSecs:Integer);'    + #13#10 +
-'procedure PlayAudio(path:string);' + #13#10 +
-'procedure RFIDFMList();'  + #13#10 +
-'procedure SetWavSavePath(Path:string);'  + #13#10 +
-'function CallingChannel(WAVPayFile:string;AudHash:string;MSecs:Integer):Single;'  + #13#10 +
-'function GetAudioLevel():LongWord;' + #13#10 +
-'procedure SaveToIMG(SavePath:string);'  + #13#10 +
-'procedure AudioSave(path: string; MSecs: Integer);'  + #13#10 +
-'function AudioCompare(AudHash: string): Single;'    + #13#10 +
-'procedure SendMail(Email: string; Subject : string; Body : string);'   + #13#10 +
-'function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer; 返回人脸数'
-);
+    MainForm.mmo2.Lines.add('')
+
+
 end;
 end;
 

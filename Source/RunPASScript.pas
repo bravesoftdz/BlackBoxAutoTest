@@ -21,6 +21,7 @@ var
   finshtimes: Int64; //完成次数
     Pass: Int64;
     Fail: int64;
+    listID: int64;
 
 implementation
 
@@ -53,7 +54,6 @@ var
     );
 
   DwrRect: TRect; //画截取图片坐标
-  listID: int64;
   WavSavePath: string = ''; //  CallingChannel 音频保存的设置路径
 const
   Calling = 1; //主呼通道

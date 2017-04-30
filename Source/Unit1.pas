@@ -555,10 +555,10 @@ begin
   Edit2.Enabled := true;
   btnRun.Enabled := True;
   ExitDelay := True;
-  //SynMemo1.Enabled := True;
   SynMemo1.ReadOnly := False;
   tmr1.Enabled := False;
   autoSaveForm.tmr1.Enabled:=False;  //自动保存记录
+  listID:=0;
 end;
 
 procedure TMainForm.mniandroid1Click(Sender: TObject);
@@ -649,15 +649,18 @@ begin
         'function WaitUntilRing(R1, R2: Integer; MSecs: Longint): Boolean;  等待振铃 '    + #13#10 +
         'function Talking(Channel, Direction: Integer): Boolean; 通话检测 '    + #13#10 +
 
-        'procedure SetWavSavePath(Path:string); 设置音频保存路径'  + #13#10 +
-        'function CallingChannel(WAVPayFile:string;AudHash:string;MSecs:Integer):Single; 通话检测'  + #13#10 +
-        'function GetAudioLevel():LongWord; 获取音量' + #13#10 +
-        'function Speaking():Boolean;    '    + #13#10 +
-        'procedure AudioRecord(MSecs:Integer); 录制音频'    + #13#10 +
+
+        'function Speaking():Boolean;  通话测试(DTMF)，成功返回真   '    + #13#10 +
+        'function CONTspeaking(MSecs: integer): Boolean; 连续进行通话(DTMF)，成功返回真'      + #13#10 +
+        
         'procedure PlayAudio(path:string); 播放音频 ' + #13#10 +
-        'procedure AudioSave(path: string; MSecs: Integer); 保存音频'  + #13#10 +
-        'function AudioCompare(AudHash: string): Single; 音频对比'    + #13#10 +
-        'procedure SaveToIMG(SavePath:string); 保存成图片'  
+        'procedure SetWavSavePath(Path:string); 设置音频保存路径'  + #13#10 +
+        'procedure AudioRecord(MSecs:Integer); 录制音频，需提前设置路径（SetWavSavePath）'    + #13#10 +
+        'function CallingChannel(WAVPayFile:string;AudHash:string;MSecs:Integer):Single; 通话检测'  + #13#10 +
+        'function GetAudioLevel():LongWord; 获取音量，需提前录音（AudioRecord）' + #13#10 +
+        'procedure SaveToIMG(SavePath:string); 保存成图片，需提前设置路径（SetWavSavePath）'  + #13#10 +  
+        'function AudioCompare(AudHash: string): Single; 音频对比，返回与AudHash的相似度，需提前设置音频路径（SetWavSavePath）及录音（AudioRecord）'   + #13#10 + 
+        'procedure AudioSave(path: string; MSecs: Integer); 保存音频'
 
         );
       end;
@@ -809,7 +812,7 @@ end;
 
 procedure TMainForm.mniadb1Click(Sender: TObject);
 begin
-  adbsetform.show;
+  adbsetform.ShowModal;
 end;
 
 procedure TMainForm.N7Click(Sender: TObject);

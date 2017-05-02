@@ -724,7 +724,10 @@ begin
        'function StrRand(Min:Integer;Max:Integer):string; Ëæ»úÊı£¬×Ö·û´®'+ #13#10 +
        'procedure Delay(ms: Integer);    ÑÓÊ±         '    + #13#10 +
        'procedure TestPause(); ²âÊÔÔİÍ£ '+ #13#10 +
-       'procedure SendMail(Email: string; Subject : string; Body : string); ·¢ÓÊ¼ş'
+       'procedure SendMail(Email: string; Subject : string; Body : string); ·¢ÓÊ¼ş'   + #13#10 +
+
+       'procedure TestRecord(path:string) ²âÊÔÂ¼Ïñ£¬path:±£´æÂ·¾¶'       + #13#10 +
+       'procedure StopRecord();  Í£Ö¹Â¼Ïñ '   
         );
       end;
   else

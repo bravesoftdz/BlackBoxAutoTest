@@ -1993,6 +1993,8 @@ end;
 
 procedure SetWavSavePath(Path: string);
 begin
+  if (Path[Length(Path)] = '\') then
+    Path := Copy(Path, 1, (Length(Path) - 1));
   if not DirectoryExists(Path) then //判断文件夹是否存在，不存在则创建文件夹
   begin
     ForceDirectories(Path); //创建文件夹
@@ -2068,6 +2070,9 @@ begin
   finally
   end;
 
+  if (Path[Length(Path)] = '\') then
+    Path := Copy(Path, 1, (Length(Path) - 1));
+
   if not DirectoryExists(Path) then //判断文件夹是否存在，不存在则创建文件夹
   begin
     ForceDirectories(Path); //创建文件夹
@@ -2130,9 +2135,22 @@ begin
     MainForm.mmo1.Lines.Add('Error: WavSavePath = ''音频路径为空!');
     Exit;
   end;
+  if (SavePath[Length(SavePath)] = '\') then
+    SavePath := Copy(SavePath, 1, (Length(SavePath) - 1));
+  if not DirectoryExists(SavePath) then //判断文件夹是否存在，不存在则创建文件夹
+  begin
+    ForceDirectories(SavePath); //创建文件夹
+    if not DirectoryExists(SavePath) then //创建文件夹错误，使用默认文件夹
+    begin
+      MainForm.mmo1.Lines.Add('Error: ' + SavePath + ' 不能创建,使用C:\Record');
+      ForceDirectories('c:\Record'); //创建文件夹
+      SavePath := 'c:\Record'; //使用默认
+    end;
+  end;
+
   openaduio(WavSavePath);
   f := ExtractFileName(WavSavePath);
-  SaveAudioBMP(SavePath + f + '.bmp');
+  SaveAudioBMP(SavePath +'\'+ f + '.bmp');
 end;
 
 procedure SendMail(Email: string; Subject : string; Body : string);

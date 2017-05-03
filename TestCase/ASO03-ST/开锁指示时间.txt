@@ -1,0 +1,22 @@
+uses SysUtils;
+var 
+time:int64;
+begin
+keypress('15',500,1);
+time := LEDIndn(1,328,176,350,198
+,'215.100.89-20.35.35',8000);
+if  (time >4000) and (time < 6000) then
+Begin
+  pass:= pass+1;
+end  
+else
+begin
+  Fail:= Fail+1;
+end;  
+
+ print('fail : ' + inttostr(fail));
+ print('pass : ' + inttostr(pass)); 
+
+//delay(35000);
+end.
+

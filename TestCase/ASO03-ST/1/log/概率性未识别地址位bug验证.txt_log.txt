@@ -1,0 +1,14 @@
+第 1 测试
+2016-04-07 15:46:40.082 Serial 6 Sent:55FF410E0004090001FA140071
+2016-04-07 15:46:40 084  Executing: Delay 50000ms
+2016-04-07 15:46:58 717  Executing:KeyPress 14 DownDelay:500 Interval:3000
+2016-04-07 15:46:58 752  info: 55FF02B1FFDF发送成功
+2016-04-07 15:46:58 788  info: 55FF02B1FFFF发送成功
+Start:2016-04-07 15:46:58 791  
+
+[error] 2016-04-07 15:46:58 794  240.1.67
+2016-04-07 15:46:58 796  Executing: SnapShot | Camera: 1 | c:\ASO03-ST\NG |
+SnapShot c:\ASO03-ST\NG\20160407154658799.jpg
+2016-04-07 15:46:58 841  Executing: Delay 35000ms
+pass : 0
+Fail : 1

@@ -1,0 +1,18 @@
+uses SysUtils; 
+
+var
+  i:integer;
+
+begin
+  i:=10; 
+  while i < 5000 do
+  begin
+    KeyDown('1');
+    delay(i);
+    keyUp();
+    i:=i * 2;
+    delay(40000);    
+  end;      
+
+end.
+

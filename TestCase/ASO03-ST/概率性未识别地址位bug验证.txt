@@ -1,0 +1,35 @@
+uses SysUtils; 
+
+var
+  TFail:integer;
+
+begin
+Serial(6,'55FF410E0004090001FA140071');
+Delay(50000);
+keypress('15',500,3000);
+if  QR(2,188,116,320,248,'abb') then
+begin
+  if GetAveHSV(1,372,250,384,262
+  ,'196.100.100-25.35.35') then
+  Begin
+    pass:= pass+1;
+    snapshot(1,'c:\ASO03-ST\OK');
+    delay(35000);
+  end  
+  else
+  begin
+    Fail:= Fail+1;
+    Photosynth(1,2,'c:\ASO03-ST\NG');
+    delay(35000);     
+  end;  
+  print('callfail : ' + inttostr(fail));
+  print('callpass : ' + inttostr(pass)); 
+end
+else
+begin
+  TFail :=TFail+1;
+  print('TFail : ' + inttostr(TFail));   
+  delay(3000);
+end;
+end.
+

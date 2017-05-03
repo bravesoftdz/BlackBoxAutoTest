@@ -1,0 +1,28 @@
+uses SysUtils;
+var 
+time:int64;
+begin
+keypress('4',500,5000);  //主动通话 
+snapshot(2,'c:\keypad_ST\IS');
+
+keypress('14',500,2000);  //门口机呼叫 
+
+  if GetAveHSV(1,28,158,28,158,'13.95.96-30.40.40') then    //占线检测 
+  Begin
+    pass:= pass+1;
+    snapshot(1,'c:\keypad_ST\OK'); 
+  end  
+  else
+  begin
+    Fail:= Fail+1;
+    snapshot(1,'c:\keypad_ST\NG'); 
+  end;  
+  
+delay(17000);   
+  
+
+print('fail : ' + inttostr(fail));
+print('pass : ' + inttostr(pass)); 
+
+
+end.

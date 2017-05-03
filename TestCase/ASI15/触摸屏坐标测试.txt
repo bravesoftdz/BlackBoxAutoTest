@@ -1,0 +1,7 @@
+begin
+  keypress('10',500,100);
+  delay(5000);
+  LogExtract('x\(\d{1,3}\) y\(\d{1,3}\)','c:\ASI15\xy\xy.txt');
+  LogClear();      
+    
+end.

@@ -1,0 +1,22 @@
+uses SysUtils; 
+begin
+keypress('1',500,1000);
+
+if GetAveHSV(1,422,322,470,366
+,'218.86.62-20.35.35') then
+Begin
+  pass:= pass+1;
+  snapshot(1,'c:\ASO03-ST\OK');
+end  
+else
+begin
+  Fail:= Fail+1;
+  snapshot(1,'c:\ASO03-ST\NG');  
+end;  
+
+ print('fail : ' + inttostr(fail));
+ print('pass : ' + inttostr(pass)); 
+
+delay(35000);
+end.
+

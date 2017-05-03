@@ -1,0 +1,36 @@
+uses SysUtils;
+var 
+time:int64;
+begin
+keypress('1',500,1);
+time := LEDIndn(1,354,328,364,340,
+'186.87.57-30.40.40',32000);
+
+if  (time >28000) and (time < 32000) then
+Begin
+//keypress('1',500,1000);  
+  delay(1000);
+  if GetAveHSV(1,236,244,246,258
+,'208.86.57-30.40.40') then
+  Begin
+    Fail:= Fail+1;
+    snapshot(1,'c:\ASO03-ST\NG');  
+  end  
+  else
+  begin
+    pass:= pass+1;
+    snapshot(1,'c:\ASO03-ST\OK');
+   end;
+  delay(35000);   
+    
+end  
+else
+begin
+  delay(35000);
+end;  
+
+print('fail : ' + inttostr(fail));
+print('pass : ' + inttostr(pass)); 
+
+
+end.

@@ -1,0 +1,8 @@
+begin
+keypress('14',500,15000);
+snapshot(1,'c:\ASO03-KM\call');
+delay(15000);
+snapshot(2,'c:\ASO03-KM\ST');
+delay(8000);
+
+end.

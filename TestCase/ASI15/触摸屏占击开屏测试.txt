@@ -1,0 +1,6 @@
+begin
+  keypress('9|10',500,100);
+  delay(5000);
+  snapshot(1,'c:\ASI15');
+  Delay(30000);
+end.

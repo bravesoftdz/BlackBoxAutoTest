@@ -1,0 +1,27 @@
+uses SysUtils;
+var 
+time:int64;
+begin
+keypress('4',500,12000);
+snapshot(2,'c:\keypad_ST\IS');
+keypress('14',500,2000);
+
+  if GetAveHSV(1,28,158,28,158
+,'13.95.96-30.40.40') then
+  Begin
+  pass:= pass+1;
+  snapshot(1,'c:\keypad_ST\OK'); 
+  end  
+  else
+  begin
+   Fail:= Fail+1;
+   snapshot(1,'c:\keypad_ST\NG'); 
+   end;
+  delay(7000);   
+  
+
+print('fail : ' + inttostr(fail));
+print('pass : ' + inttostr(pass)); 
+
+
+end.

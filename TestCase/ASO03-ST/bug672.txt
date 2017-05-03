@@ -1,0 +1,28 @@
+uses SysUtils;
+begin
+keypress('4',500,12000);
+keypress('14',500,2000);
+if  GetAveHSV(2,294,102,308,118
+,'11.96.82-30.40.40') then
+  Begin
+    Fail:= Fail+1;
+    snapshot(1,'c:\ASO03-ST\NG');  
+  end  
+  else
+  begin
+    pass:= pass+1;
+    snapshot(1,'c:\ASO03-ST\OK');
+   end;
+  delay(35000);   
+    
+end  
+else
+begin
+  delay(35000);
+end;  
+
+print('fail : ' + inttostr(fail));
+print('pass : ' + inttostr(pass)); 
+
+
+end.

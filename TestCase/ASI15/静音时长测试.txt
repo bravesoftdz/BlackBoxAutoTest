@@ -1,0 +1,5 @@
+begin
+ if not GetAveHSV(1,282,278,300,290,'187.31.96') then
+  Snapshot(1,'c:\asi15\mute');
+delay(10000);
+end.

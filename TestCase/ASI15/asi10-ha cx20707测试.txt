@@ -1,0 +1,20 @@
+begin
+  logclear();
+  keydown('8');//断电 
+  delay(5000);
+  keyup();  //上电 
+  delay(80000); //等待上电 }
+  keypress('1',300,500); //呼叫 
+if WaitUntilRing(1,1,10000) then
+  pass :=pass+1 
+ else
+ begin
+  fail:=fail +1; //('OK'); //  RegisterHeader(0, 'function Ring(R1, R2: Integer): Boolean', @Ring); // 
+  logsave('c:\ASI15\LOG'); 
+  TestPause();
+
+ end;
+//delay(6000);
+end.
+
+//  function WaitUntilRing(R1, R2: Integer; MSecs: Longint): Boolean;', @WaitUntilRing);

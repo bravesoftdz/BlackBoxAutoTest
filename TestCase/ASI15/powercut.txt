@@ -1,0 +1,29 @@
+uses Sysutils;
+var
+ t:integer;
+begin
+  //t:=rand(500,10000);
+  t:=10000;  
+  keydown('8');
+  delay(t);
+  LogClear();   
+  keyup();
+  delay(50000);
+  if logfind('osa_mem') then
+  begin
+    pass:=pass+1;
+    Snapshot(1,'c:\asi15\P'); 
+ 
+  end
+  else
+  begin
+    fail:=fail+1;
+    Snapshot(1,'c:\asi15\F'); 
+    LogSave('c:\asi15\F');      
+  end;
+  Print('fail: ' + inttostr(fail));  
+  Print('pass: ' + inttostr(pass));    
+ //    Snapshot(1,'c:\asi15\P');   
+     
+      
+end.

@@ -14,8 +14,8 @@ object AudioSettingsForm: TAudioSettingsForm
   Position = poDesktopCenter
   OnCreate = FormCreate
   DesignSize = (
-    841
-    389)
+    849
+    397)
   PixelsPerInch = 96
   TextHeight = 13
   object VolumeLevel: TLabel

@@ -800,7 +800,7 @@ begin
       Path := 'c:\SnapShot'; //使用默认
     end;
   end;
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '.jpg';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '.jpg';
   MainForm.mmo1.Lines.Add('SnapShot ' + path);
   CameraSetUnit.CMSnapShot(cameraID, path); //抓图
   if FileExists(path) then
@@ -1665,7 +1665,7 @@ begin
       Path := 'c:\SnapShot'; //使用默认
     end;
   end;
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '.jpg';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '.jpg';
   MainForm.mmo1.Lines.Add('Photosynth ' + path);
   try
     Abitmap := CMSnapShotMem(C1);
@@ -1744,7 +1744,7 @@ begin
       Path := 'c:\Logs'; //使用默认
     end;
   end;
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '_COMM.txt';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '_COMM.txt';
   MainForm.mmo1.Lines.Add('CommLogSave ' + path);
   // LogForm.Memo1.Lines.SaveToFile(Path);
    //  LogForm.Memo1.Lines.Clear;
@@ -1772,7 +1772,7 @@ begin
       Path := 'c:\Logs'; //使用默认
     end;
   end;
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '_DEV.txt';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '_DEV.txt';
   MainForm.mmo1.Lines.Add('LogSave ' + path);
   // LogForm.Memo2.Lines.SaveToFile(Path);
    // LogForm.Memo2.Lines.Clear;
@@ -2084,7 +2084,7 @@ begin
     end;
   end;
 
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '.wav';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '.wav';
   WAVSave(Path);
   openaduio(path);
   SaveAudioBMP(Path + '.bmp');
@@ -2150,7 +2150,7 @@ begin
 
   openaduio(WavSavePath);
   f := ExtractFileName(WavSavePath);
-  SaveAudioBMP(SavePath +'\'+ f + '.bmp');
+  SaveAudioBMP(SavePath +'\'+ f +'.bmp');
 end;
 
 procedure SendMail(Email: string; Subject : string; Body : string);
@@ -2298,7 +2298,7 @@ begin
     end;
   end;
 
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '.avi';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '.avi';
 
   LogFlag := 7;
   LogThread.Create(False);

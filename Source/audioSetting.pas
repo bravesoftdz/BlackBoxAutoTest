@@ -357,10 +357,11 @@ var
   i,j: Cardinal;
   time: Double;
   hs2: HSTREAM;
-  LData: array of Cardinal;
   tmp:Int64;
+  Level: Cardinal;
 begin
   tmp:=0;
+  Level:=0;
   BASS_StreamFree(hs);
 
   Mp3Path := AnsiString(path);
@@ -382,13 +383,14 @@ begin
     j:=  Trunc(time * 50 + 1);
 
     {遍历峰值数据填充数组}
-    for i := 1 to j do
-      tmp := tmp + BASS_ChannelGetLevel(hs2);
-     // LData[i] := BASS_ChannelGetLevel(hs2);
-
+    for i := 0 to j-1 do
+    begin
+      Level := BASS_ChannelGetLevel(hs2); {其低16位为左声道峰值; 高16位为右声道峰值}
+      tmp := tmp + hiWord(Level);
+    end;
     {hs2 此时已完成使命, 释放它}
     BASS_StreamFree(hs2);
-     Result:= tmp div j;
+    Result:= tmp div j;
 
    MainForm.mmo1.Lines.add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + inttostr( Result));
   end;

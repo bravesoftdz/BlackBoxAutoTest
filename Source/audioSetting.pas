@@ -38,6 +38,8 @@ type
     CheckBox1: TCheckBox;
     Edit1: TEdit;
     Button4: TButton;
+    Button5: TButton;
+    Memo1: TMemo;
     procedure TrackBar1Change(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -50,6 +52,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
     { Private declarations }
     WaveStream: TMemoryStream;
@@ -64,6 +67,7 @@ procedure openaduio(path: string);
 procedure SaveAudioBMP(Path: string);
 procedure PlayWAV(Mp3Path: string);
 function getaudioLv(path: string):LongWord;
+
 var
   AudioSettingsForm: TAudioSettingsForm;
   WaveHdr: WAVHDR; // WAV header
@@ -74,6 +78,9 @@ var
   pyhs: HSTREAM;
   Data: array of Cardinal;
   bit: TBitmap;
+  type
+  TArray = array of Integer;
+function GetAudioFFTDate(Mp3Path:string):TArray;
 implementation
 
 uses Unit1;
@@ -559,6 +566,83 @@ begin
   end;
   ComboBox1Change(Self); // display info
   Button4.Enabled:=False;
+end;
+
+procedure TAudioSettingsForm.Button5Click(Sender: TObject);
+var
+  Mp3Path: AnsiString;
+  hs2: HSTREAM;
+  i,di: Integer;
+  FFTData: array[0..127] of Single;
+  FFTPeacks  : array [0..127] of Integer;
+  FFTstrData:string;
+begin
+  BASS_StreamFree(hs2);
+
+  OpenDialog1.Filter := 'Wav 文件(*.wav)|*wav|Mp3 文件(*.mp3)|*.mp3';
+  if OpenDialog1.Execute then
+    Mp3Path := AnsiString(OpenDialog1.FileName);
+  hs2 := BASS_StreamCreateFile(False, PAnsiChar(Mp3Path), 0, 0, BASS_STREAM_DECODE);
+
+
+  if hs2 < BASS_ERROR_ENDED then
+    Text := '打开失败'
+  else
+  begin
+      {重新建立文件流 hs2, 最后的参数是: BASS_STREAM_DECODE, 这样可以提前读取波形数据}
+   // hs2 := BASS_StreamCreateFile(False, PAnsiChar(Mp3Path), 0, 0, BASS_STREAM_DECODE);
+    BASS_ChannelGetData(hs2, @FFTData, BASS_DATA_FFT256);
+
+  bit.Width := pbDrawArea.Width;
+  bit.Height := pbDrawArea.Height;
+  bit.Canvas.Brush.Color := clBlack;
+  bit.Canvas.FillRect(Rect(0, 0, bit.Width, bit.Height));
+
+  bit.Canvas.Pen.Color := clLime;
+  FFTstrData:='';
+  for i := 0 to Length(FFTData) - 1 do
+  begin
+    di := Round(Abs(FFTData[i]) * 500);
+    FFTstrData:= FFTstrData + IntToStr(di)+ ',';
+    FFTPeacks[i] := di;
+     bit.Canvas.Pen.Color := bit.Canvas.Pen.Color;
+    bit.Canvas.lineto(i,  bit.Height - FFTPeacks[i]);
+   // bit.Canvas.LineTo(i,  FFTPeacks[i]);//56
+    bit.Canvas.Pen.Color := bit.Canvas.Pen.Color;
+    bit.Canvas.Brush.Color := bit.Canvas.Pen.Color;
+  end;
+  FFTstrData := Copy(FFTstrData, 1, (Length(FFTstrData) - 1));
+  Memo1.Lines.Add(FFTstrData);
+  BitBlt(pbDrawArea.Canvas.Handle, 0, 0, pbDrawArea.Width, pbDrawArea.Height, bit.Canvas.Handle, 0, 0, SRCCOPY);
+  end;
+end;
+
+function GetAudioFFTDate(Mp3Path:string):TArray;
+var
+  hs2: HSTREAM;
+  i,di: Integer;
+  FFTData: array[0..127] of Single;
+begin
+  setlength(Result,128);
+  BASS_StreamFree(hs2);
+  hs2 := BASS_StreamCreateFile(False, PAnsiChar(Mp3Path), 0, 0, BASS_STREAM_DECODE);
+
+
+  if hs2 < BASS_ERROR_ENDED then
+   // Text := '打开失败'
+  else
+  begin
+      {重新建立文件流 hs2, 最后的参数是: BASS_STREAM_DECODE, 这样可以提前读取波形数据}
+   // hs2 := BASS_StreamCreateFile(False, PAnsiChar(Mp3Path), 0, 0, BASS_STREAM_DECODE);
+    BASS_ChannelGetData(hs2, @FFTData, BASS_DATA_FFT256);
+  for i := 0 to Length(FFTData) - 1 do
+  begin
+    di := Round(Abs(FFTData[i]) * 500);
+    Result[i] := di;
+
+  end;
+
+  end;
 end;
 
 end.

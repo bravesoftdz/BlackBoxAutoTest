@@ -19,9 +19,9 @@ type
   end;
 var
   finshtimes: Int64; //完成次数
-    Pass: Int64;
-    Fail: int64;
-    listID: int64;
+  Pass: Int64;
+  Fail: int64;
+  listID: int64;
 
 implementation
 
@@ -29,7 +29,7 @@ uses
   TypInfo, Windows, Graphics, SysUtils, Forms, Dialogs, DSPack, ExGlobal, Unit1,
   CameraSetUnit, QRcodeUnit, OCRUnit, PaxRegister, IMPORT_Common, DTMFUnit,
   jpeg, math, PComm, android, DeviceComunicationLog, CoolTrayIcon,
-  DeviceLog, LogTh, PerlRegEx, audioSetting, Bass, AudioOutUnit, CardSet,IdSSLOpenSSL,IdIOHandlerSocket,
+  DeviceLog, LogTh, PerlRegEx, audioSetting, Bass, AudioOutUnit, CardSet, IdSSLOpenSSL, IdIOHandlerSocket,
   IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP,
   IdMessage, IdComponent, IdIOHandler, AutoSaveUnit, facedetectUnit, U_Main;
 { Important: Methods and properties of objects in visual components can only be
@@ -148,7 +148,7 @@ begin
   begin
     try
       strtempsend := strtempsend + chr(strtobcd(copy(AStr, i, 2)));
-       i:=i+2;
+      i := i + 2;
     except
     end;
   end;
@@ -800,7 +800,7 @@ begin
       Path := 'c:\SnapShot'; //使用默认
     end;
   end;
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '.jpg';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '_' + inttostr(finshtimes) + '.jpg';
   MainForm.mmo1.Lines.Add('SnapShot ' + path);
   CameraSetUnit.CMSnapShot(cameraID, path); //抓图
   if FileExists(path) then
@@ -1083,11 +1083,11 @@ begin
       ExpColor := SplitString(RGB, '.');
       ColorAL := StrToInt(ExpColor[0]) - Round(StrToInt(ExpColor[0]) * 0.1);
       if ColorAL < 0 then
-         ColorAL := 0;
-      ColorBL:= StrToInt(ExpColor[1]) - Round(StrToInt(ExpColor[1]) * 0.1);
+        ColorAL := 0;
+      ColorBL := StrToInt(ExpColor[1]) - Round(StrToInt(ExpColor[1]) * 0.1);
       if ColorBL < 0 then
         ColorBL := 0;
-      ColorCL:= StrToInt(ExpColor[2]) - Round(StrToInt(ExpColor[2]) * 0.1);
+      ColorCL := StrToInt(ExpColor[2]) - Round(StrToInt(ExpColor[2]) * 0.1);
       if ColorCL < 0 then
         ColorCL := 0;
 
@@ -1144,7 +1144,7 @@ begin
     'Executing: GetAveRGB ');
   try
     SocBMP := CMSnapShotMem(CameraID); //图像抓拍，内存中
-    ColorRGB := GetColorFunc(SocBMP, X,Y);
+    ColorRGB := GetColorFunc(SocBMP, X, Y);
   finally
     SocBMP.Free;
   end;
@@ -1208,11 +1208,11 @@ begin
       ExpColor := SplitString(RGB, '.');
       ColorAL := StrToInt(ExpColor[0]) - Round(StrToInt(ExpColor[0]) * 0.1);
       if ColorAL < 0 then
-         ColorAL := 0;
-      ColorBL:= StrToInt(ExpColor[1]) - Round(StrToInt(ExpColor[1]) * 0.1);
+        ColorAL := 0;
+      ColorBL := StrToInt(ExpColor[1]) - Round(StrToInt(ExpColor[1]) * 0.1);
       if ColorBL < 0 then
         ColorBL := 0;
-      ColorCL:= StrToInt(ExpColor[2]) - Round(StrToInt(ExpColor[2]) * 0.1);
+      ColorCL := StrToInt(ExpColor[2]) - Round(StrToInt(ExpColor[2]) * 0.1);
       if ColorCL < 0 then
         ColorCL := 0;
 
@@ -1413,7 +1413,7 @@ function Serial_Open(Com: Integer): Boolean;
 var
   ret: Integer;
 begin
-   sio_close(Com);
+  sio_close(Com);
   ret := sio_open(Com);
   if ret <> SIO_OK then
   begin
@@ -1665,7 +1665,7 @@ begin
       Path := 'c:\SnapShot'; //使用默认
     end;
   end;
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '.jpg';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '_' + inttostr(finshtimes) + '.jpg';
   MainForm.mmo1.Lines.Add('Photosynth ' + path);
   try
     Abitmap := CMSnapShotMem(C1);
@@ -1744,7 +1744,7 @@ begin
       Path := 'c:\Logs'; //使用默认
     end;
   end;
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '_COMM.txt';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '_' + inttostr(finshtimes) + '_COMM.txt';
   MainForm.mmo1.Lines.Add('CommLogSave ' + path);
   // LogForm.Memo1.Lines.SaveToFile(Path);
    //  LogForm.Memo1.Lines.Clear;
@@ -1772,7 +1772,7 @@ begin
       Path := 'c:\Logs'; //使用默认
     end;
   end;
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '_DEV.txt';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '_' + inttostr(finshtimes) + '_DEV.txt';
   MainForm.mmo1.Lines.Add('LogSave ' + path);
   // LogForm.Memo2.Lines.SaveToFile(Path);
    // LogForm.Memo2.Lines.Clear;
@@ -2084,7 +2084,7 @@ begin
     end;
   end;
 
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '.wav';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '_' + inttostr(finshtimes) + '.wav';
   WAVSave(Path);
   openaduio(path);
   SaveAudioBMP(Path + '.bmp');
@@ -2150,22 +2150,22 @@ begin
 
   openaduio(WavSavePath);
   f := ExtractFileName(WavSavePath);
-  SaveAudioBMP(SavePath +'\'+ f +'.bmp');
+  SaveAudioBMP(SavePath + '\' + f + '.bmp');
 end;
 
-procedure SendMail(Email: string; Subject : string; Body : string);
+procedure SendMail(Email: string; Subject: string; Body: string);
 var
   filename: string;
-begin     //发送邮件主函数
+begin //发送邮件主函数
   MainForm.mmo1.Lines.add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'SendMail()');
   try
-    MainForm.IdSSLIOHandlerSocket1.SSLOptions.Method:=sslvSSLv3;
-    MainForm.IdSMTP1.IOHandler:= MainForm.IdSSLIOHandlerSocket1;  //区别在这儿哟
-    MainForm.IdSMTP1.AuthenticationType:=atLogin; //设置登陆类型
-    MainForm.IdSMTP1.Username:='cndex_autotest'; //设置登陆帐号
-    MainForm.IdSMTP1.Password:='CNDEX9622289'; //设置登陆密码
-    MainForm.IdSMTP1.Host:='smtp.163.com'; //设置SMTP地址
-    MainForm.IdSMTP1.Port:=465;     //设置端口 ,默认是25，gmail是465
+    MainForm.IdSSLIOHandlerSocket1.SSLOptions.Method := sslvSSLv3;
+    MainForm.IdSMTP1.IOHandler := MainForm.IdSSLIOHandlerSocket1; //区别在这儿哟
+    MainForm.IdSMTP1.AuthenticationType := atLogin; //设置登陆类型
+    MainForm.IdSMTP1.Username := 'cndex_autotest'; //设置登陆帐号
+    MainForm.IdSMTP1.Password := 'CNDEX9622289'; //设置登陆密码
+    MainForm.IdSMTP1.Host := 'smtp.163.com'; //设置SMTP地址
+    MainForm.IdSMTP1.Port := 465; //设置端口 ,默认是25，gmail是465
     if not MainForm.idsmtp1.Connected then
     begin
       MainForm.IdSMTP1.Connect(2000); //开始连接服务器
@@ -2174,20 +2174,20 @@ begin     //发送邮件主函数
     MainForm.mmo1.Lines.add('连接失败!');
     Exit; //连接失败 的话 退出该执行过程
   end;
-  MainForm.IdMessage1.Body.Clear;  //先清空上次发送的内容
-  MainForm.IdMessage1.Subject:= subject; //设置邮件发送的标题
-  MainForm.IdMessage1.Body.add(Body);  //设置邮件发送的主体
+  MainForm.IdMessage1.Body.Clear; //先清空上次发送的内容
+  MainForm.IdMessage1.Subject := subject; //设置邮件发送的标题
+  MainForm.IdMessage1.Body.add(Body); //设置邮件发送的主体
  // filename := 'C:\1.txt';   //需要添加的附件文件
  // TIdAttachment.Create(IdMessage1.MessageParts, filename);  //添加附件
-  MainForm.IdMessage1.From.Address:= 'cndex_autotest@163.com'; //设置邮件的发件人  也就是说该邮件来自什么地方
+  MainForm.IdMessage1.From.Address := 'cndex_autotest@163.com'; //设置邮件的发件人  也就是说该邮件来自什么地方
   MainForm.IdMessage1.From.Name := 'Autotest';
-  MainForm.IdMessage1.Recipients.EMailAddresses:= Email;  //收件人的地址
+  MainForm.IdMessage1.Recipients.EMailAddresses := Email; //收件人的地址
  // IdMessage1.CCList.EMailAddresses:='7894@126.com';//抄送
  // IdMessage1.BccList.EmailAddresses:='aaaabbb@gmail.com'; //密送
-  MainForm.IdMessage1.Priority:=mpHighest; //邮件重要性
+  MainForm.IdMessage1.Priority := mpHighest; //邮件重要性
   try
     MainForm.idSMTP1.Authenticate;
-    MainForm.idSMTP1.Send(  MainForm.IdMessage1);
+    MainForm.idSMTP1.Send(MainForm.IdMessage1);
     MainForm.mmo1.Lines.add('发送成功!');
   except
     MainForm.mmo1.Lines.add('邮件发送失败!');
@@ -2231,6 +2231,52 @@ begin
   MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'Similar: ' + floattostr(1 - (HashRsut / 256)));
 end;
 
+function AudioRecognition(FFTData: string): Single;
+var
+
+  Imghash: string; //获得图片的hash
+  HashBit: string;
+  HashRsut: Integer;
+  FFTPeacks: TArray;
+  I, pc: Integer;
+  temp: Integer;
+  ExpData: TStringList;
+  ExpL: array[0..127] of Integer;
+  ExpH: array[0..127] of Integer;
+begin
+  MainForm.mmo1.Lines.add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'AudioRecognition: ');
+  Result := 0.0;  
+  setlength(FFTPeacks, 128);
+  ExpData := TStringList.Create;
+  try
+    ExpData.Delimiter := ','; //置换分隔符
+    ExpData.DelimitedText := FFTData;
+    for i := 0 to 127 do
+    begin
+      temp := StrToInt(ExpData[i]);
+      ExpL[i] := max(0, Round(temp - (temp * 0.2)));
+      ExpH[i] := Round(temp + (temp * 0.2));
+    end;
+   // WavSavePath := 'C:\Users\Jeff Chen\Desktop\auto\1KHZ.wav';
+    if WavSavePath = '' then
+    begin
+      MainForm.mmo1.Lines.Add('Error: WavSavePath音频保存路径为空!');
+      Exit;
+    end;
+    FFTPeacks := GetAudioFFTDate(WavSavePath);
+    pc := 0;
+    for i := 0 to 127 do
+    begin
+      if (FFTPeacks[i] >= ExpL[i]) and (FFTPeacks[i] <= ExpH[i]) then
+        PC := pc + 1;
+    end;
+  finally
+    ExpData.Free;
+  end;
+    Result := PC / 128;
+    MainForm.mmo1.Lines.Add('Result: ' + floattostr(Result));  
+end;
+
 function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer;
   //QRcode解码
 var
@@ -2263,7 +2309,7 @@ begin
       //QRresult := DecodeFile(QRPicPath);
       QRresult := facedetect_frontal(PChar(QRPicPath), 1.2, 3, 24, 0);
 
-      if QRresult > 0  then
+      if QRresult > 0 then
       begin
         // MainForm.mmo1.Lines.Add('返回:' + QRresult + ' 检测OK');
          //  DeleteBMPFile(ImgPath);
@@ -2276,7 +2322,7 @@ begin
       bmp.Free; //释放内存
       SocBMP.free;
     end;
-    MainForm.mmo1.Lines.Add('第 ' + IntToStr(i) + ' 次检测结果: ' +IntToStr( QRresult));
+    MainForm.mmo1.Lines.Add('第 ' + IntToStr(i) + ' 次检测结果: ' + IntToStr(QRresult));
     if Result > 0 then
       Break;
     del := RandomRange(300, 3000 + 1);
@@ -2285,7 +2331,7 @@ begin
   end;
 end;
 
-procedure TestRecord(path:string);
+procedure TestRecord(path: string);
 begin
   if not DirectoryExists(Path) then //判断文件夹是否存在，不存在则创建文件夹
   begin
@@ -2298,7 +2344,7 @@ begin
     end;
   end;
 
-  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) +'_'+ inttostr(finshtimes) + '.avi';
+  path := Path + '\' + FormatDateTime('yyyymmddhhmmsszzz', now) + '_' + inttostr(finshtimes) + '.avi';
 
   LogFlag := 7;
   LogThread.Create(False);
@@ -2397,7 +2443,7 @@ begin
       Break;
   end;
   MainForm.tmr1.Enabled := False;
-  autoSaveForm.tmr1.Enabled:=False;  //自动保存记录
+  autoSaveForm.tmr1.Enabled := False; //自动保存记录
 end;
 
 
@@ -2478,6 +2524,7 @@ initialization
   RegisterHeader(0, 'procedure SaveToIMG(SavePath:string);', @SaveToIMG);
   RegisterHeader(0, 'procedure AudioSave(path: string; MSecs: Integer);', @AudioSave);
   RegisterHeader(0, 'function AudioCompare(AudHash: string): Single;', @AudioCompare);
+  RegisterHeader(0, 'function AudioRecognition(FFTData: string): Single;', @AudioRecognition);
   RegisterHeader(0, 'procedure SendMail(Email: string; Subject : string; Body : string);', @SendMail);
   RegisterHeader(0, 'function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer;', @FaceDetect);
   RegisterHeader(0, 'function GetAveRGB(CameraID: Integer; x1, y1, x2, y2: Integer; RGB: string):Boolean;', @GetAveRGB);

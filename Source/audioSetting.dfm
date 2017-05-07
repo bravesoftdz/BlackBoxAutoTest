@@ -133,12 +133,28 @@ object AudioSettingsForm: TAudioSettingsForm
     TabOrder = 8
     OnClick = Button4Click
   end
+  object Button5: TButton
+    Left = 8
+    Top = 216
+    Width = 75
+    Height = 25
+    Caption = 'FFT'
+    TabOrder = 9
+    OnClick = Button5Click
+  end
+  object Memo1: TMemo
+    Left = 32
+    Top = 288
+    Width = 73
+    Height = 73
+    TabOrder = 10
+  end
   object OpenDialog1: TOpenDialog
-    Left = 120
-    Top = 320
+    Left = 136
+    Top = 272
   end
   object SaveDialog1: TSaveDialog
-    Left = 120
-    Top = 272
+    Left = 136
+    Top = 216
   end
 end

@@ -45,13 +45,8 @@ begin
 end;
 procedure TautoSaveForm.tmr1Timer(Sender: TObject);
 begin
-   MainForm.mmo1.Lines.Add(
-    '完成：' + inttostr(finshtimes) + #13 +
-    '通过：' + inttostr(Pass) + #13 +
-    '失败：' + inttostr(Fail) + #13
-    );
-    if AutoSavePath = '' then
-        AutoSavePath := APPpath + 'Log' ;
+  if AutoSavePath = '' then
+     AutoSavePath := APPpath + 'Log' ;
   if not DirectoryExists(AutoSavePath) then //判断文件夹是否存在，不存在则创建文件夹
      ForceDirectories(AutoSavePath); //创建文件夹
    MainForm.mmo1.Lines.SaveToFile(AutoSavePath + '\'  + FormatDateTime('yyyymmdd', now) + '_autosave.txt');

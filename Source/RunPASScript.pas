@@ -2418,7 +2418,7 @@ begin
         Synchronize(Formcanvas2); //视频区显示截取的区域
         // Synchronize(StopREC);
        // finshtimes := finshtimes + 1;
-
+         MainForm.mmo1.Lines.Add( 'Pass:' + inttostr(Pass) + ',Fail:' + inttostr(Fail)  );
         if MainForm.ComboBox1.ItemIndex <> 0 then //循环测试跳过次数判断
         begin
           if finshtimes >= testtimes then

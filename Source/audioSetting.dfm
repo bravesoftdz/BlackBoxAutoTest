@@ -1,6 +1,6 @@
 object AudioSettingsForm: TAudioSettingsForm
-  Left = 423
-  Top = 263
+  Left = 444
+  Top = 147
   Width = 857
   Height = 428
   Caption = 'AudioSettingsForm'

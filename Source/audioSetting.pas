@@ -602,7 +602,7 @@ begin
   FFTstrData:='';
   for i := 0 to Length(FFTData) - 1 do
   begin
-    di := Round(Abs(FFTData[i]) * 500);
+    di := Round(Abs(FFTData[i]) * 5000);
     FFTstrData:= FFTstrData + IntToStr(di)+ ',';
     FFTPeacks[i] := di;
      bit.Canvas.Pen.Color := bit.Canvas.Pen.Color;
@@ -637,7 +637,7 @@ begin
     BASS_ChannelGetData(hs2, @FFTData, BASS_DATA_FFT256);
   for i := 0 to Length(FFTData) - 1 do
   begin
-    di := Round(Abs(FFTData[i]) * 500);
+    di := Round(Abs(FFTData[i]) * 5000);
     Result[i] := di;
 
   end;

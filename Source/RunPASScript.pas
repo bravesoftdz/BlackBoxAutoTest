@@ -1548,8 +1548,8 @@ begin
   if cardNum < 4294967296 then
   begin
     cardtimes := 30; //strtoint(form2.Edit1.Text);
-    cmdstr := '55ff05b7' + formatfloat('00', cardtimes) + inttohex(cardNum, 8);
-
+    cmdstr := '55FF05B7' + formatfloat('00', cardtimes) + inttohex(cardNum, 8);
+    cmdstr :=  cmdstr  + GetCheck(cmdstr);
   end
   else
   begin
@@ -1559,8 +1559,9 @@ begin
   end;
 
   //SendStrhex(ComCard, cmdstr);
-  WriteStrhex(ComCard, cmdstr);
-  Delayms(500);
+  //WriteStrhex(ComCard, cmdstr);
+   Serial(ComCard,cmdstr);
+  Delayms(1000);
   { while true do //等待数据接收
    begin
      sleep(1);
@@ -2168,7 +2169,7 @@ begin //发送邮件主函数
     MainForm.IdSMTP1.Port := 465; //设置端口 ,默认是25，gmail是465
     if not MainForm.idsmtp1.Connected then
     begin
-      MainForm.IdSMTP1.Connect(2000); //开始连接服务器
+      MainForm.IdSMTP1.Connect(8000); //开始连接服务器
     end;
   except
     MainForm.mmo1.Lines.add('连接失败!');
@@ -2491,8 +2492,6 @@ initialization
   RegisterHeader(0,
     'function LEDIndn(CameraID: Integer; x1, y1, x2, y2: Integer; HSV: string; MSecs: Integer): Int64;',
     @LEDIndn);
-  RegisterHeader(0, 'function Serial(Com: Integer; sData: string): integer;',
-    @Serial);
   RegisterHeader(0, 'function Card(cardNum: int64): Boolean;', @Card);
   RegisterHeader(0, ' procedure RFIDFMList();', @RFIDFMList);
   RegisterHeader(0, 'function Android_ScreenCAP(Path: string):Boolean;',

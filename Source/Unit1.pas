@@ -679,7 +679,6 @@ begin
         pgc1.ActivePage := ts1;
         mmo2.Clear;
         MainForm.mmo2.Lines.add(
-          'function Serial(Com: Integer; sData: string): integer; 串口发送数据(无返回) '    + #13#10 +
           'function SendCmd(Com: Integer; SData: string;RData: string): Boolean; 串口发送数据,检查返回'
            );
       end;

@@ -1,6 +1,6 @@
 object FormCardSet: TFormCardSet
-  Left = 631
-  Top = 219
+  Left = 513
+  Top = 223
   BorderStyle = bsDialog
   Caption = #27169#25311#21345#35774#32622
   ClientHeight = 435

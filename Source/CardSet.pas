@@ -61,7 +61,7 @@ begin
     Mainform.mmo1.Lines.Add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'sio_open' + IntToStr(ret));
     Exit;
   end;
-  if sio_ioctl(ComCard, B9600, P_NONE or BIT_8 or STOP_1) <> sio_ok then
+  if sio_ioctl(ComCard, B19200, P_NONE or BIT_8 or STOP_1) <> sio_ok then
   begin
     sio_close(ComCard);
     Mainform.mmo1.Lines.Add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'sio_ioctl' + IntToStr(ret));

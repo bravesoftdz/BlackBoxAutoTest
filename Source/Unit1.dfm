@@ -176,7 +176,7 @@ object MainForm: TMainForm
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 699
+    Top = 704
     Width = 1016
     Height = 19
     Panels = <
@@ -200,7 +200,7 @@ object MainForm: TMainForm
   end
   object grp1: TGroupBox
     Left = 0
-    Top = 544
+    Top = 549
     Width = 1016
     Height = 155
     Align = alBottom
@@ -247,7 +247,7 @@ object MainForm: TMainForm
     Left = 0
     Top = 49
     Width = 209
-    Height = 495
+    Height = 500
     Align = alLeft
     Caption = #25991#20214#21015#34920
     TabOrder = 4
@@ -255,7 +255,7 @@ object MainForm: TMainForm
       Left = 2
       Top = 15
       Width = 205
-      Height = 478
+      Height = 483
       ActivePage = ts3
       Align = alClient
       TabOrder = 0
@@ -265,7 +265,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 0
           Width = 197
-          Height = 450
+          Height = 455
           Align = alClient
           Indent = 19
           ReadOnly = True
@@ -331,7 +331,7 @@ object MainForm: TMainForm
     Left = 209
     Top = 49
     Width = 807
-    Height = 495
+    Height = 500
     Align = alClient
     Caption = #20195#30721#32534#36753
     TabOrder = 5
@@ -339,7 +339,7 @@ object MainForm: TMainForm
       Left = 2
       Top = 15
       Width = 803
-      Height = 478
+      Height = 483
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText

@@ -23,6 +23,7 @@ function CheckThreadFreed(aThread: TThread): Byte; //判断线程是否释放
 function GetDosOutput(Command: string): string;
 function EndProcess(ExeFileName:string):integer;
 function StringToHex(s: string): string;
+function GetCheck(AStr: string): string;
 var
   { Global variable for example }
   Com1Open: boolean; { opened ? }

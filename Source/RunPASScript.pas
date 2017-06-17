@@ -325,7 +325,7 @@ var
 begin
   Result := False;
   MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
-    'Executing:' + 'IO ' + inttostr(IO1) + inttostr(IO2) + inttostr(IO3) +
+    'Executing:' + 'IO ' + inttostr(IO1) +','+ inttostr(IO2) +','+ inttostr(IO3)+','+
     inttostr(IO4));
   cmdstr := '55FF04B500000000';
   SendStrhex(Com1, cmdstr);
@@ -707,8 +707,8 @@ begin
   Exit := False;
   Result := False;
   MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
-    'Executing:' + 'WaitInPut ' + inttostr(IO1) + inttostr(IO2) + inttostr(IO3) +
-    inttostr(IO4) + inttostr(MSecs));
+    'Executing:' + 'WaitInPut ' + inttostr(IO1) +','+ inttostr(IO2)+','+ inttostr(IO3) +','+
+    inttostr(IO4) +','+ inttostr(MSecs)+'ms');
   FirstTickCount := GetTickCount();
   repeat
     RingResult := IO(IO1, IO2, IO3, IO4);
@@ -724,7 +724,7 @@ begin
     Application.ProcessMessages;
     Sleep(1);
 
-  until (Nw - FirstTickCount >= MSecs) or (Nw < FirstTickCount) or Exit;
+  until ((Nw - FirstTickCount) >= MSecs) or (Nw < FirstTickCount) or Exit;
   MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
     'WaitInPut end');
 end;
@@ -1540,28 +1540,25 @@ function Card(cardNum: int64): Boolean; //
 var
   cardtimes: Integer; //
   cmdstr: string; //发送的数据
+  delaytime:integer;
 begin
   Result := False;
 
-  MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
-    'Executing:' + 'Card :' + IntToStr(cardNum));
+  MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'Executing:' + 'Card :' + IntToStr(cardNum));
   if cardNum < 4294967296 then
   begin
-    cardtimes := 30; //strtoint(form2.Edit1.Text);
+    cardtimes :=  strtoint(FormCardSet.edt2.Text);
     cmdstr := '55FF05B7' + formatfloat('00', cardtimes) + inttohex(cardNum, 8);
     cmdstr :=  cmdstr  + GetCheck(cmdstr);
   end
   else
   begin
-    MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
-      'error:' + 'Card :' + IntToStr(cardNum));
+    MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +  'error:' + 'Card :' + IntToStr(cardNum));
     exit;
   end;
-
-  //SendStrhex(ComCard, cmdstr);
-  //WriteStrhex(ComCard, cmdstr);
-   Serial(ComCard,cmdstr);
-  Delayms(1000);
+  Serial(ComCard,cmdstr);
+  delaytime := strtoint(FormCardSet.edt2.Text) * 35;
+  Delayms(delaytime);
   { while true do //等待数据接收
    begin
      sleep(1);

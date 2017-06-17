@@ -19,12 +19,25 @@ type
     OpenDialog1: TOpenDialog;
     Label1: TLabel;
     Lbl2: TLabel;
+    Button2: TButton;
+    Button3: TButton;
+    edt1: TEdit;
+    lbl3: TLabel;
+    Button4: TButton;
+    dlgSave1: TSaveDialog;
+    edt2: TEdit;
+    Label2: TLabel;
     procedure btnCfgCancelClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCfgOKClick(Sender: TObject);
     procedure cbbPortChange(Sender: TObject);
     procedure btn1Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure edt1KeyPress(Sender: TObject; var Key: Char);
+    procedure edt2KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -36,7 +49,7 @@ var
 
 implementation
 
-uses ExGlobal,PComm, Unit1;
+uses ExGlobal, PComm, Unit1;
 
 {$R *.dfm}
 
@@ -47,14 +60,14 @@ end;
 
 procedure TFormCardSet.FormCreate(Sender: TObject);
 begin
-  cbbPort.Items:=ComStrList;
+  cbbPort.Items := ComStrList;
 end;
 
 procedure TFormCardSet.btnCfgOKClick(Sender: TObject);
 var
   ret: Integer;
 begin
-   ComCard:= GetNum(cbbPort.text);
+  ComCard := GetNum(cbbPort.text);
   ret := sio_open(ComCard);
   if ret <> SIO_OK then
   begin
@@ -67,12 +80,12 @@ begin
     Mainform.mmo1.Lines.Add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'sio_ioctl' + IntToStr(ret));
     Exit;
   end;
-   Close;
+  Close;
 end;
 
 procedure TFormCardSet.cbbPortChange(Sender: TObject);
 begin
-    sio_close(ComCard);
+  sio_close(ComCard);
 end;
 
 procedure TFormCardSet.btn1Click(Sender: TObject);
@@ -83,45 +96,79 @@ end;
 
 procedure TFormCardSet.Button1Click(Sender: TObject);
 
-  var
+var
   F: TextFile;
   S: string;
-  num:Int64;
+  num: Int64;
+begin
+  if OpenDialog1.Execute then // Display Open dialog box
   begin
-  if OpenDialog1.Execute then            // Display Open dialog box
-  begin
-          ListBox1.Items.Clear;
-  AssignFile(F, OpenDialog1.FileName); //绑定文件到文件类型变量
-  Reset(F);//打开一个存在的文件,另Rewrite创建文件并打开
-  while not eof(F) do begin
-  Readln(F, S);
-  if S = '' then  //去除空行
-  continue;
-  num := getnum(S);//保留数字，去除非数字字符
-  if num < 4294967296 then
- // Memo1.Lines.Add(S);
-          ListBox1.Items.Add(inttostr(num));
+    ListBox1.Items.Clear;
+    AssignFile(F, OpenDialog1.FileName); //绑定文件到文件类型变量
+    Reset(F); //打开一个存在的文件,另Rewrite创建文件并打开
+    while not eof(F) do begin
+      Readln(F, S);
+      if S = '' then //去除空行
+        continue;
+      num := getnum(S); //保留数字，去除非数字字符
+      if (num < 4294967296) and (num > 0) then
+        ListBox1.Items.Add(inttostr(num));
+    end;
+    CloseFile(F);
+    lbl2.Caption := IntToStr(ListBox1.Items.count); //显示文件数
   end;
-  CloseFile(F);
-  lbl2.Caption := IntToStr(ListBox1.Items.count); //显示文件数
-  end;
- end;
+end;
 
-  {
-    for i := 0 to files.count - 1 do
-    begin
-      lst1.Items.Clear;
-    end;
-    for i := 0 to files.count - 1 do
-    begin
-      if sameText(Copy(files.Strings[i], (Length(files.Strings[i]) - 2), 3), 'bmp')
-        or sameText(Copy(files.Strings[i], (Length(files.Strings[i]) - 2), 3), 'jpg') then
-        lst1.Items.Add(files.Strings[i]);
-    end;
-    label3.Caption := IntToStr(lst1.Items.count); //显示文件数
-  finally
-    files.Free;
+procedure TFormCardSet.Button2Click(Sender: TObject);
+begin
+  ListBox1.Items.Clear;
+end;
+
+procedure TFormCardSet.Button3Click(Sender: TObject);
+var
+  H, L, num: string;
+  i: Integer;
+begin
+  Randomize;
+  for i := 0 to strtoint(edt1.text)-1 do
+  begin
+    H := IntToStr(Random(42950));
+    l := IntToStr(Random(67296));
+    num := h + l;
+    ListBox1.Items.Add(num);
   end;
-end;   }
+  lbl2.Caption := IntToStr(ListBox1.Items.count); //显示文件数
+end;
+
+procedure TFormCardSet.Button4Click(Sender: TObject);
+begin
+  dlgSave1.DefaultExt := 'txt';
+  dlgSave1.Filter := '文本文档(*.txt)|*.txt';
+  if dlgSave1.Execute then
+  begin
+    if FileExists(dlgSave1.FileName) then
+    begin
+      if MessageBox(0, '文件已存在，是否覆盖', 'information', MB_OKCANCEL) = MB_OKCANCEL then
+      begin
+        listbox1.Items.savetofile(dlgSave1.FileName);
+      end;
+    end
+    else
+    begin
+      listbox1.Items.savetofile(dlgSave1.FileName);
+    end;
+  end;
+end;
+
+procedure TFormCardSet.edt1KeyPress(Sender: TObject; var Key: Char);
+begin
+ if not (Key in ['0'..'9',#8]) then Key := #0;
+end;
+
+procedure TFormCardSet.edt2KeyPress(Sender: TObject; var Key: Char);
+begin
+ if not (Key in ['0'..'9',#8]) then Key := #0;
+end;
 
 end.
+

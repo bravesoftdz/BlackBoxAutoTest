@@ -37,6 +37,20 @@ object FormCardSet: TFormCardSet
     Height = 13
     Caption = #24635#25968
   end
+  object lbl3: TLabel
+    Left = 16
+    Top = 260
+    Width = 24
+    Height = 13
+    Caption = #25968#37327
+  end
+  object Label2: TLabel
+    Left = 16
+    Top = 304
+    Width = 48
+    Height = 13
+    Caption = #36755#20986#27425#25968
+  end
   object cbbPort: TComboBox
     Left = 62
     Top = 28
@@ -49,26 +63,26 @@ object FormCardSet: TFormCardSet
   end
   object chk1: TCheckBox
     Left = 64
-    Top = 64
+    Top = 56
     Width = 97
     Height = 17
     Caption = #33258#21160#36830#25509
     TabOrder = 1
   end
   object btnCfgOK: TButton
-    Left = 31
-    Top = 95
+    Left = 23
+    Top = 79
     Width = 65
-    Height = 20
+    Height = 25
     Caption = #30830#23450' '
     TabOrder = 2
     OnClick = btnCfgOKClick
   end
   object btnCfgCancel: TButton
     Left = 119
-    Top = 93
+    Top = 79
     Width = 65
-    Height = 20
+    Height = 25
     Caption = #21462#28040
     TabOrder = 3
     OnClick = btnCfgCancelClick
@@ -99,8 +113,61 @@ object FormCardSet: TFormCardSet
     TabOrder = 6
     OnClick = Button1Click
   end
+  object Button2: TButton
+    Left = 216
+    Top = 72
+    Width = 65
+    Height = 25
+    Caption = #28165#31354
+    TabOrder = 7
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 16
+    Top = 224
+    Width = 89
+    Height = 25
+    Caption = #29983#25104#38543#26426#21345#21495
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 8
+    OnClick = Button3Click
+  end
+  object edt1: TEdit
+    Left = 40
+    Top = 256
+    Width = 65
+    Height = 21
+    TabOrder = 9
+    Text = '3000'
+    OnKeyPress = edt1KeyPress
+  end
+  object Button4: TButton
+    Left = 216
+    Top = 184
+    Width = 65
+    Height = 25
+    Caption = #20445#23384
+    TabOrder = 10
+    OnClick = Button4Click
+  end
+  object edt2: TEdit
+    Left = 66
+    Top = 300
+    Width = 49
+    Height = 21
+    TabOrder = 11
+    Text = '30'
+    OnKeyPress = edt2KeyPress
+  end
   object OpenDialog1: TOpenDialog
-    Left = 208
-    Top = 152
+    Left = 184
+  end
+  object dlgSave1: TSaveDialog
+    Left = 224
   end
 end

@@ -2,9 +2,9 @@ unit android;
 
 interface
 
-function Android_ScreenCAP(Path: string): Boolean;
-procedure Android_Tap(Coordinate: string);
-procedure Android_Swipe(Coordinate: string;time:Integer);
+function Android_ScreenCAP(Device:string;Path: string): Boolean;
+procedure Android_Tap(Device:string;Coordinate: string);
+procedure Android_Swipe(Device:string;Coordinate: string;time:Integer);
 implementation
 
 uses
@@ -12,13 +12,13 @@ uses
   CameraSetUnit, QRcodeUnit, OCRUnit, PaxRegister, IMPORT_Common, DTMFUnit, jpeg, math, PComm, Classes, 
   adbunit;
 
-function Android_ScreenCAP(Path: string): Boolean;
+function Android_ScreenCAP(Device:string;Path: string): Boolean;
 var
   CMDOut: string;
   FileName: string;
 begin
 
-  Mainform.mmo1.Lines.add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'Executing: Android.ScreenCAP  | ' + path);
+  Mainform.mmo1.Lines.add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'Executing: Android.ScreenCAP  | '+Device + path);
   Result := False;
   if (Path[Length(Path)] = '\') then
     Path := Copy(Path, 1, (Length(Path) - 1));
@@ -35,17 +35,17 @@ begin
   FileName := FormatDateTime('yyyymmddhhmmsszzz', now) + '.png';
   path := Path + '\' + FileName;
   MainForm.mmo1.Lines.Add('SnapShot ' + path);
-  GetDosOutput(ADBpath+' shell screencap -p /sdcard/' + FileName);
-  CMDOut := GetDosOutput(ADBpath+' pull /sdcard/' + FileName + ' ' + path);
+  GetDosOutput(ADBpath + ' -s '+Device + ' shell screencap /sdcard/' + FileName);
+  CMDOut := GetDosOutput(ADBpath+' -s '+ Device + ' pull /sdcard/' + FileName + ' ' + path);
   MainForm.mmo1.Lines.add(CMDOut);
-  GetDosOutput(ADBpath+' shell rm /sdcard/' + FileName);
+  GetDosOutput(ADBpath + ' -s '+Device +' shell rm /sdcard/' + FileName);
   if FileExists(path) then
     Result := True
   else
     MainForm.mmo1.Lines.add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'Error: AndroidScreenCAP截图保存失败');
 end;
 
-procedure Android_Tap(Coordinate: string);
+procedure Android_Tap(Device:string;Coordinate: string);
 var
   CMDOut: string;
   xy: TStrings;
@@ -53,7 +53,7 @@ var
   y: string;
 begin
 
-  Mainform.mmo1.Lines.add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'Executing: Android_Tap  | ' + Coordinate);
+  Mainform.mmo1.Lines.add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'Executing: Android_Tap  | '+Device + Coordinate);
 
   xy := SplitString(Coordinate, ','); //按','分割字符
   if xy.Count <> 2 then //单个按键动作
@@ -63,7 +63,7 @@ begin
   end;
   x := xy.Strings[0];
   y := xy.Strings[1];
-  CMDOut := GetDosOutput(ADBpath+' shell input tap ' + x + ' ' + y);
+  CMDOut := GetDosOutput(ADBpath + ' -s '+Device + ' shell input tap ' + x + ' ' + y);
   MainForm.mmo1.Lines.add(CMDOut);
 
   xy.Free;
@@ -71,7 +71,7 @@ begin
 end;
 
 
-procedure Android_Swipe(Coordinate: string;time:Integer);
+procedure Android_Swipe(Device:string;Coordinate: string;time:Integer);
 var
   CMDOut: string;
   xy: TStrings;
@@ -81,7 +81,7 @@ var
   y2: string;
 begin
 
-  Mainform.mmo1.Lines.add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'Executing: Android_Tap  | ' + Coordinate);
+  Mainform.mmo1.Lines.add(FormatDateTime('yyyy/mm/dd hh:mm:ss.zzz', now) + ' ' + 'Executing: Android_Tap  | '+Device + Coordinate);
 
   xy := SplitString(Coordinate, ','); //按','分割字符
   if xy.Count <> 4  then //单个按键动作
@@ -93,7 +93,7 @@ begin
   y1 := xy.Strings[1];
   x2 := xy.Strings[2];
   y2 := xy.Strings[3];
-  CMDOut := GetDosOutput(ADBpath+' shell input swipe ' + x1 + ' ' + y1 +' '+ x2 + ' ' + y2 + ' '+inttostr(time) );
+  CMDOut := GetDosOutput(ADBpath + ' -s '+Device + ' shell input swipe ' + x1 + ' ' + y1 +' '+ x2 + ' ' + y2 + ' '+inttostr(time) );
   MainForm.mmo1.Lines.add(CMDOut);
 
   xy.Free;

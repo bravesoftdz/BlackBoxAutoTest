@@ -696,9 +696,9 @@ begin
         pgc1.ActivePage := ts1;
         mmo2.Clear;
         MainForm.mmo2.Lines.add(
-         'function Android_ScreenCAP(Path: string):Boolean; 抓拍 '    + #13#10 +
-         'procedure Android_Tap(Coordinate: string); 点击 '    + #13#10 +
-         'procedure Android_Swipe(Coordinate: string;time:Integer); 滑动 '   );
+         'function Android_ScreenCAP(Device:string;Path: string): Boolean; 抓拍 '    + #13#10 +
+         'procedure Android_Tap(Device:string;Coordinate: string); 点击 '    + #13#10 +
+         'procedure Android_Swipe(Device:string;Coordinate: string;time:Integer); 滑动 '   );
       end;
       8:   //LOG操作
       begin

@@ -2491,10 +2491,10 @@ initialization
     @LEDIndn);
   RegisterHeader(0, 'function Card(cardNum: int64): Boolean;', @Card);
   RegisterHeader(0, ' procedure RFIDFMList();', @RFIDFMList);
-  RegisterHeader(0, 'function Android_ScreenCAP(Path: string):Boolean;',
+  RegisterHeader(0, 'function Android_ScreenCAP(Device:string;Path: string): Boolean;',
     @Android_ScreenCAP);
-  RegisterHeader(0, 'procedure Android_Tap(Coordinate: string);', @Android_Tap);
-  RegisterHeader(0, 'procedure Android_Swipe(Coordinate: string;time:Integer);',
+  RegisterHeader(0, 'procedure Android_Tap(Device:string;Coordinate: string);', @Android_Tap);
+  RegisterHeader(0, 'procedure Android_Swipe(Device:string;Coordinate: string;time:Integer);',
     @Android_Swipe);
   RegisterHeader(0, 'function CommLogSave(Path: string): Boolean;',
     @CommLogSave);

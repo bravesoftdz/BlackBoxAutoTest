@@ -2,12 +2,12 @@ program DobotDemo;
 
 uses
   Forms,
-  Unit1 in 'Unit1.pas' {Form1};
+  DobotUnit in 'DobotUnit.pas' {DobotForm};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TDobotForm, DobotForm);
   Application.Run;
 end.

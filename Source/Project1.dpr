@@ -34,7 +34,8 @@ uses
   adbunit in 'adbunit.pas' {AdbSetForm},
   TestingVideoUnit in 'TestingVideoUnit.pas' {Form2},
   U_Main in 'U_Main.pas' {Video_frm_Main},
-  U_Option in 'U_Option.pas' {frm_Option};
+  U_Option in 'U_Option.pas' {frm_Option},
+  DobotUnit in 'DobotUnit.pas' {DobotForm};
 
 {$R *.res}
 
@@ -59,5 +60,6 @@ begin
   Application.CreateForm(TForm2, Form2);
   Application.CreateForm(TVideo_frm_Main, Video_frm_Main);
   Application.CreateForm(Tfrm_Option, frm_Option);
+  Application.CreateForm(TDobotForm, DobotForm);
   Application.Run;
 end.

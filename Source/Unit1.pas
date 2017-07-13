@@ -164,7 +164,7 @@ uses
   Config, DeviceLog, QRcodeUnit, OCRUnit, CardSet,
   testcase, DTMFUnit, IMPORT_SysUtils, RunPASScript,// MultInst,
   audioSetting,Bass, SetComTHUnit, RoboticArmUnit, AutoSaveUnit, adbunit, 
-  U_Main;
+  U_Main, DobotUnit;
 
 {$R *.dfm}
 
@@ -804,7 +804,7 @@ end;
 
 procedure TMainForm.N5Click(Sender: TObject);
 begin
-  roboticarmform.show;
+  dobotform.show;
 end;
 
 procedure TMainForm.N6Click(Sender: TObject);

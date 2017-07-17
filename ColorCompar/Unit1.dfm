@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 225
-  Top = 90
-  Width = 1186
-  Height = 708
+  Left = 82
+  Top = 111
+  Width = 1193
+  Height = 722
   Caption = #39068#33394#27604#36739
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -74,7 +74,7 @@ object Form1: TForm1
   end
   object lbl8: TLabel
     Left = 592
-    Top = 576
+    Top = 592
     Width = 24
     Height = 13
     Caption = #35823#24046
@@ -88,7 +88,7 @@ object Form1: TForm1
   end
   object Label1: TLabel
     Left = 384
-    Top = 576
+    Top = 592
     Width = 24
     Height = 13
     Caption = #39068#33394
@@ -102,14 +102,14 @@ object Form1: TForm1
   end
   object lbl10: TLabel
     Left = 384
-    Top = 608
+    Top = 624
     Width = 20
     Height = 13
     Caption = 'RGB'
   end
   object lbl11: TLabel
     Left = 384
-    Top = 640
+    Top = 656
     Width = 19
     Height = 13
     Caption = 'HSV'
@@ -123,8 +123,8 @@ object Form1: TForm1
   object Label4: TLabel
     Left = 998
     Top = 8
-    Width = 75
-    Height = 17
+    Width = 3
+    Height = 13
   end
   object btn1: TButton
     Left = 16
@@ -167,7 +167,7 @@ object Form1: TForm1
   end
   object edt4: TEdit
     Left = 416
-    Top = 600
+    Top = 616
     Width = 121
     Height = 21
     TabOrder = 5
@@ -175,7 +175,7 @@ object Form1: TForm1
   end
   object edt5: TEdit
     Left = 544
-    Top = 600
+    Top = 616
     Width = 121
     Height = 21
     TabOrder = 6
@@ -183,7 +183,7 @@ object Form1: TForm1
   end
   object edt6: TEdit
     Left = 416
-    Top = 544
+    Top = 536
     Width = 121
     Height = 21
     TabOrder = 7
@@ -210,7 +210,7 @@ object Form1: TForm1
     Left = 672
     Top = 512
     Width = 489
-    Height = 145
+    Height = 161
     Lines.Strings = (
       'mmo3')
     ScrollBars = ssVertical
@@ -218,21 +218,21 @@ object Form1: TForm1
   end
   object edt7: TEdit
     Left = 416
-    Top = 632
+    Top = 648
     Width = 121
     Height = 21
     TabOrder = 11
   end
   object edt8: TEdit
     Left = 544
-    Top = 632
+    Top = 648
     Width = 121
     Height = 21
     TabOrder = 12
   end
   object rb1: TRadioButton
     Left = 440
-    Top = 576
+    Top = 592
     Width = 41
     Height = 17
     Caption = 'RGB'
@@ -242,7 +242,7 @@ object Form1: TForm1
   end
   object rb2: TRadioButton
     Left = 488
-    Top = 576
+    Top = 592
     Width = 41
     Height = 17
     Caption = 'HSV'
@@ -274,6 +274,14 @@ object Form1: TForm1
     Caption = #23548#20986#22833#36133#25991#20214
     TabOrder = 17
     OnClick = btn3Click
+  end
+  object chk1: TCheckBox
+    Left = 416
+    Top = 568
+    Width = 97
+    Height = 17
+    Caption = #26597#25214#30456#21516
+    TabOrder = 18
   end
   object dlgOpen1: TOpenDialog
     Left = 168

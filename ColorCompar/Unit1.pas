@@ -43,6 +43,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     btn3: TButton;
+    chk1: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure btn1Click(Sender: TObject);
     procedure img1MouseDown(Sender: TObject; Button: TMouseButton;

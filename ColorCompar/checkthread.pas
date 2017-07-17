@@ -17,12 +17,12 @@ function SplitString(const source, ch: string): tstringlist; //°´Ch ·Ö¸î×Ö·û´®
 implementation
 
 uses
-  Dialogs, SysUtils, Graphics, Unit1,jpeg;
+  Dialogs, SysUtils, Graphics, Unit1, jpeg;
 
 var
   x, y: Integer;
   s0: string;
-  psI:Integer;
+  psI: Integer;
 
 function SplitString(const source, ch: string): tstringlist; //°´Ch ·Ö¸î×Ö·û´®
 var
@@ -46,26 +46,26 @@ var
   rgb: TRGBColor;
   HSV: THSVColor;
   bmp: TBitmap;
-  jpeg: TJPEGImage;    
+  jpeg: TJPEGImage;
 begin
-  jpeg:= TJPEGImage.Create;  
+  jpeg := TJPEGImage.Create;
   bmp := tbitmap.Create;
   try
 
 
-   if sameText(Copy(s0,(Length(s0)-2),3),'bmp') then
-    bmp.LoadFromFile(filespath + '\' + s0)
-   else
-   begin
+    if sameText(Copy(s0, (Length(s0) - 2), 3), 'bmp') then
+      bmp.LoadFromFile(filespath + '\' + s0)
+    else
+    begin
 
      //bmp.Assign(Jpg2Bmp(filespath + '\' + s0));
-      try 
-        jpeg.LoadFromFile( filespath + '\' + s0 );
-        bmp.Assign( jpeg );
-       finally
+      try
+        jpeg.LoadFromFile(filespath + '\' + s0);
+        bmp.Assign(jpeg);
+      finally
         jpeg.free
-       end; 
-   end;
+      end;
+    end;
 
 
     Form1.img1.Picture.Assign(bmp);
@@ -74,13 +74,29 @@ begin
     Form1.mmo3.Lines.Add(s0 + ' ×ø±ê:' + inttostr(x) + ',' + inttostr(y) + ' RGB:=' + inttostr(rgb.Red) + ',' + inttostr(rgb.Green) + ',' + inttostr(rgb.Blue)
       + ' HSV:' + (FloatToStr(HSV.Hue) + ',' + FloatToStr(HSV.Saturation) + ',' + FloatToStr(HSV.Brightness))
       );
-    if not ((rgb.Red >  CriterionRGB_L.Red) and (rgb.Red < CriterionRGB_H.Red) and
-      (rgb.Green >  CriterionRGB_L.Green) and (rgb.Green <  CriterionRGB_H.Green) and
-      (rgb.Blue >  CriterionRGB_L.Blue) and (rgb.Blue <  CriterionRGB_H.Blue)) then
+
+    if Form1.chk1.Checked then
     begin
-      Form1.lst2.Items.Add(s0+','+inttostr(psI));
-      Form1.label4.Caption := inttostr(Form1.lst2.Items.Count); //ÏÔÊ¾Ê§°ÜÊý
+      if  ((rgb.Red >= CriterionRGB_L.Red) and (rgb.Red <= CriterionRGB_H.Red) and
+        (rgb.Green >= CriterionRGB_L.Green) and (rgb.Green <= CriterionRGB_H.Green) and
+        (rgb.Blue >= CriterionRGB_L.Blue) and (rgb.Blue <= CriterionRGB_H.Blue)) then
+      begin
+        Form1.lst2.Items.Add(s0 + ',' + inttostr(psI));
+        Form1.label4.Caption := inttostr(Form1.lst2.Items.Count); //ÏÔÊ¾Ê§°ÜÊý
+      end;
+    end
+    else
+    begin
+      if not ((rgb.Red >= CriterionRGB_L.Red) and (rgb.Red <= CriterionRGB_H.Red) and
+        (rgb.Green >= CriterionRGB_L.Green) and (rgb.Green <= CriterionRGB_H.Green) and
+        (rgb.Blue >= CriterionRGB_L.Blue) and (rgb.Blue <= CriterionRGB_H.Blue)) then
+      begin
+        Form1.lst2.Items.Add(s0 + ',' + inttostr(psI));
+        Form1.label4.Caption := inttostr(Form1.lst2.Items.Count); //ÏÔÊ¾Ê§°ÜÊý
+      end;
     end;
+
+
   finally
     bmp.Free;
   end;
@@ -112,8 +128,8 @@ begin
     if Form1.lst1.items[i] <> '' then
     begin
       s0 := Form1.lst1.items[i];
-      Form1.mmo3.Lines.Add(IntToStr(i+1)+':');
-      psI:=i+1;
+      Form1.mmo3.Lines.Add(IntToStr(i + 1) + ':');
+      psI := i + 1;
       Synchronize(ShowData2);
     end;
   end;

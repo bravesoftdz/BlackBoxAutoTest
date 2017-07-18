@@ -15,14 +15,14 @@ uses
   Windows;
   
 type
-  tagPose = packed record
+  POSE = packed record
     x: single;
     y: Single;
     z: Single;
     r: Single;
-    jointAngle: Array[0..4-1] of Single;
+    jointAngle: Array[0..3] of Single;
   end {tagPose};
-  POSE= tagPose;
+ // POSE= tagPose;
 
 {+// }
 {-* Kinematics parameters }
@@ -139,15 +139,15 @@ type
 
 
 type
-  tagPTPCmd = packed record
+  PTPCMD = packed record
     ptpMode: Byte;
     x: single;
     y: single;
     z: single;
     r: single;
   end {tagPTPCmd};
-  PTPCMD = tagPTPCmd;
-
+  //PTPCMD = tagPTPCmd;
+  pPTPCMD = ^PTPCMD;
 
 
 type

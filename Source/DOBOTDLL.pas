@@ -35,9 +35,7 @@ function SetPTPJointParams(var ptpJointParams: PTPJOINTPARAMS;
 
 function GetPTPJointParams(var ptpJointParams: PTPJOINTPARAMS): Integer cdecl;external 'DOBOTDLL.DLL';
 
-function SetPTPCmd(var ptpCmd: PTPCMD;
-                   isQueued: Bool;
-                   var queuedCmdIndex: int64): Integer cdecl;external 'DOBOTDLL.DLL';
+function SetPTPCmd(var ptpCmd: PTPCMD; isQueued: Bool;  var queuedCmdIndex: int64): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function GetPose(var pose: POSE): Integer cdecl;external 'DOBOTDLL.DLL';
 

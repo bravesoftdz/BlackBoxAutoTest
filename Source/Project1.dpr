@@ -28,7 +28,6 @@ uses
   audioSetting in 'audioSetting.pas' {AudioSettingsForm},
   AudioOutUnit in 'AudioOutUnit.pas',
   SetComTHUnit in 'SetComTHUnit.pas',
-  RoboticArmUnit in 'RoboticArmUnit.pas' {RoboticARMForm},
   AutoSaveUnit in 'AutoSaveUnit.pas' {autoSaveForm},
   facedetectUnit in 'facedetectUnit.pas',
   adbunit in 'adbunit.pas' {AdbSetForm},
@@ -54,7 +53,6 @@ begin
   Application.CreateForm(TOptionForm, OptionForm);
   Application.CreateForm(TFormCardSet, FormCardSet);
   Application.CreateForm(TAudioSettingsForm, AudioSettingsForm);
-  Application.CreateForm(TRoboticARMForm, RoboticARMForm);
   Application.CreateForm(TautoSaveForm, autoSaveForm);
   Application.CreateForm(TAdbSetForm, AdbSetForm);
   Application.CreateForm(TForm2, Form2);

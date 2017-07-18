@@ -31,7 +31,8 @@ uses
   jpeg, math, PComm, android, DeviceComunicationLog, CoolTrayIcon,
   DeviceLog, LogTh, PerlRegEx, audioSetting, Bass, AudioOutUnit, CardSet, IdSSLOpenSSL, IdIOHandlerSocket,
   IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP,
-  IdMessage, IdComponent, IdIOHandler, AutoSaveUnit, facedetectUnit, U_Main;
+  IdMessage, IdComponent, IdIOHandler, AutoSaveUnit, facedetectUnit, U_Main,
+  DOBOTDLL, DOBOTTYPE, DobotExGlobal;
 { Important: Methods and properties of objects in visual components can only be
   used in a method called using Synchronize, for example,
 
@@ -325,7 +326,7 @@ var
 begin
   Result := False;
   MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
-    'Executing:' + 'IO ' + inttostr(IO1) +','+ inttostr(IO2) +','+ inttostr(IO3)+','+
+    'Executing:' + 'IO ' + inttostr(IO1) + ',' + inttostr(IO2) + ',' + inttostr(IO3) + ',' +
     inttostr(IO4));
   cmdstr := '55FF04B500000000';
   SendStrhex(Com1, cmdstr);
@@ -707,8 +708,8 @@ begin
   Exit := False;
   Result := False;
   MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +
-    'Executing:' + 'WaitInPut ' + inttostr(IO1) +','+ inttostr(IO2)+','+ inttostr(IO3) +','+
-    inttostr(IO4) +','+ inttostr(MSecs)+'ms');
+    'Executing:' + 'WaitInPut ' + inttostr(IO1) + ',' + inttostr(IO2) + ',' + inttostr(IO3) + ',' +
+    inttostr(IO4) + ',' + inttostr(MSecs) + 'ms');
   FirstTickCount := GetTickCount();
   repeat
     RingResult := IO(IO1, IO2, IO3, IO4);
@@ -1540,23 +1541,23 @@ function Card(cardNum: int64): Boolean; //
 var
   cardtimes: Integer; //
   cmdstr: string; //发送的数据
-  delaytime:integer;
+  delaytime: integer;
 begin
   Result := False;
 
   MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'Executing:' + 'Card :' + IntToStr(cardNum));
   if cardNum < 4294967296 then
   begin
-    cardtimes :=  strtoint(FormCardSet.edt2.Text);
+    cardtimes := strtoint(FormCardSet.edt2.Text);
     cmdstr := '55FF05B7' + formatfloat('00', cardtimes) + inttohex(cardNum, 8);
-    cmdstr :=  cmdstr  + GetCheck(cmdstr);
+    cmdstr := cmdstr + GetCheck(cmdstr);
   end
   else
   begin
-    MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) +  'error:' + 'Card :' + IntToStr(cardNum));
+    MainForm.mmo1.Lines.Add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'error:' + 'Card :' + IntToStr(cardNum));
     exit;
   end;
-  Serial(ComCard,cmdstr);
+  Serial(ComCard, cmdstr);
   delaytime := strtoint(FormCardSet.edt2.Text) * 35;
   Delayms(delaytime);
   { while true do //等待数据接收
@@ -2243,7 +2244,7 @@ var
   ExpH: array[0..127] of Integer;
 begin
   MainForm.mmo1.Lines.add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'AudioRecognition: ');
-  Result := 0.0;  
+  Result := 0.0;
   setlength(FFTPeacks, 128);
   ExpData := TStringList.Create;
   try
@@ -2271,8 +2272,8 @@ begin
   finally
     ExpData.Free;
   end;
-    Result := PC / 128;
-    MainForm.mmo1.Lines.Add('Result: ' + floattostr(Result));  
+  Result := PC / 128;
+  MainForm.mmo1.Lines.Add('Result: ' + floattostr(Result));
 end;
 
 function FaceDetect(cameraID: Integer; X1, Y1, X2, Y2: Integer): Integer;
@@ -2356,6 +2357,70 @@ begin
   CapFName := '';
 end;
 
+procedure Dobot(trajectory: string);
+var
+  i: integer;
+  MultipleKeys: TStrings;
+  pars: TStrings;
+  x, y, z, r: Single;
+  x1, y1, z1, r1: Single;
+  x2, y2, z2, r2: Single;  
+  dobotPose: POSE;
+  FirstTickCount, Nw: Longint;
+  EX:Boolean;
+begin
+  MainForm.mmo1.Lines.add(FormatDateTime('yyyy-mm-dd hh:mm:ss zzz  ', now) + 'Dobot:' + trajectory);
+  pars := SplitString(trajectory, ';'); //按';'分割字符
+  if pars.Count > 0 then
+  begin
+    for i := 0 to pars.Count - 1 do
+    begin
+      if Pos('delay', AnsiLowerCase(pars[i])) = 0 then
+      begin
+        MultipleKeys := SplitString(pars[i], ','); //按','分割字符
+        x := StrToFloat(MultipleKeys[0]);
+        y := StrToFloat(MultipleKeys[1]);
+        z := StrToFloat(MultipleKeys[2]);
+        r := StrToFloat(MultipleKeys[3]);
+         x1 := abs(x) - abs(x) * 0.05;
+         y1 := Abs(y) - Abs(y) * 0.05;
+         z1 := Abs(z) - Abs(z) * 0.05;
+         r1 := Abs(r) - Abs(r) * 0.05;
+         x2 := Abs(x) + Abs(x) * 0.05;
+         y2 := Abs(y) + Abs(y) * 0.05;
+         z2 := Abs(z) + Abs(z) * 0.05;
+         r2 := Abs(r) + Abs(r) * 0.05;
+
+        DobotPTP(2, x, y, z, r);
+      end
+      else
+      begin
+        FirstTickCount := GetTickCount();
+        EX:=False;
+        repeat
+          Nw := GetTickCount();
+          GetPose(dobotPose);
+         if(Abs(dobotPose.x) <= x2) and (Abs(dobotPose.x) >= x1)
+         and (Abs(dobotPose.y) <= y2)and (Abs(dobotPose.y) >= y1)
+         and (Abs(dobotPose.z) <= z2) and (Abs(dobotPose.z) >= z1)
+         and (Abs(dobotPose.r) <= r2) and (Abs(dobotPose.r) >= r1) then //  then
+          begin
+             EX:=True;
+          end;
+          Delayms(500);
+        until (Nw - FirstTickCount >= 20000) or (Nw < FirstTickCount) or EX;
+
+        Delayms(GetNum(pars[i]));
+      end;
+    end;
+
+  end;
+  pars.Free;
+  MultipleKeys.Free;
+end;
+
+
+
 procedure PascalScript.Execute;
 var
   i: Integer;
@@ -2416,7 +2481,7 @@ begin
         Synchronize(Formcanvas2); //视频区显示截取的区域
         // Synchronize(StopREC);
        // finshtimes := finshtimes + 1;
-         MainForm.mmo1.Lines.Add( 'Pass:' + inttostr(Pass) + ',Fail:' + inttostr(Fail)  );
+        MainForm.mmo1.Lines.Add('Pass:' + inttostr(Pass) + ',Fail:' + inttostr(Fail));
         if MainForm.ComboBox1.ItemIndex <> 0 then //循环测试跳过次数判断
         begin
           if finshtimes >= testtimes then
@@ -2527,5 +2592,6 @@ initialization
   RegisterHeader(0, 'function GetRGB(CameraID: Integer; x, y: Integer; RGB: string):Boolean;', @GetRGB);
   RegisterHeader(0, 'procedure TestRecord(path:string)', @TestRecord);
   RegisterHeader(0, 'procedure StopRecord();', @StopRecord);
+  RegisterHeader(0, 'procedure Dobot(trajectory: string); ', @Dobot);
 end.
 

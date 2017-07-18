@@ -90,6 +90,9 @@ var
 
 implementation
 
+uses
+  ExGlobal;
+
 {$R *.dfm}
 
 
@@ -108,10 +111,8 @@ dobotPose : POSE;
 begin
    //Timer1.Enabled := True;
    GetPose(dobotPose);
- DobotForm.Memo1.Lines.Add(FloatToStr(dobotPose.x)+'   '
-                         +FloatToStr(dobotPose.y)+'   '
-                         +FloatToStr(dobotPose.z)+'   '
-                         +FloatToStr(dobotPose.r));
+ DobotForm.Memo1.Lines.Add(FloatToStrF(dobotPose.x,ffNumber,5,2) + ',' + FloatToStrF(dobotPose.y,ffNumber,5,2)+ ',' +
+                           FloatToStrF(dobotPose.z,ffNumber,5,2)+',' + FloatToStrF(dobotPose.r,ffNumber,5,2))  ;
 
  StringGrid1.RowCount:=StringGrid1.RowCount+1;
  StringGrid1.Row:= StringGrid1.RowCount-1; //ÐÐºÅ¸ú½ø
@@ -150,7 +151,7 @@ begin
       r := StrToFloat(StringGrid1.Cells[4,i]);
       DobotPTP(2,x,y,z,r);
       StringGrid1.Row:=i;
-      sleep(1000);
+      Delayms(1000);
    end;
 end;
 

@@ -65,14 +65,24 @@ end;
 function DobotPTP(style:Byte;x: double;y: double;z: double; r: double):LongInt;
 var
 pdbCmd:PTPCmd ;
+p:pPTPCMD;
 cmdIndex :int64;
 ret :integer;
 begin
+  cmdIndex:=0;
   pdbCmd.ptpMode := style;
   pdbCmd.x := x;
   pdbCmd.y := y;
   pdbCmd.z := z;
   pdbCmd.r := r;
+
+//  p.ptpMode := style;
+//  p.x := x;
+//    p.y := y;
+//      p.z := z;
+//        p.r := r;
+
+
   while true do
   begin
      ret := SetPTPCmd(pdbCmd,true,cmdIndex);
@@ -100,6 +110,7 @@ queuedCmdIndex : int64;
 dobothomeCmd : HOMECMD;
 ret : integer;
 begin
+  queuedCmdIndex:=0;
   while true do
   begin
     ret := SetHOMECmd(dobothomeCmd,true,queuedCmdIndex);

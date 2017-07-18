@@ -164,7 +164,7 @@ uses
   Config, DeviceLog, QRcodeUnit, OCRUnit, CardSet,
   testcase, DTMFUnit, IMPORT_SysUtils, RunPASScript,// MultInst,
   audioSetting,Bass, SetComTHUnit, RoboticArmUnit, AutoSaveUnit, adbunit, 
-  U_Main, DobotUnit;
+  U_Main, DobotUnit,DobotExGlobal,DOBOTDLL;
 
 {$R *.dfm}
 
@@ -204,6 +204,7 @@ begin
   TrayIcon1.Icon :=Application.Icon;
 //  SetComThread.Create(False);
   SetCom.Create(False);
+  StartDobot();
 end;
 
 procedure TMainForm.MeuExitClick(Sender: TObject);
@@ -726,9 +727,19 @@ begin
        'procedure SendMail(Email: string; Subject : string; Body : string); 发邮件'   + #13#10 +
 
        'procedure TestRecord(path:string) 测试录像，path:保存路径'       + #13#10 +
-       'procedure StopRecord();  停止录像 '   
+       'procedure StopRecord();  停止录像 '
         );
       end;
+       10:   //其它操作
+      begin
+        pgc1.ActivePage := ts1;
+        mmo2.Clear;
+        MainForm.mmo2.Lines.add(
+       'procedure Robot(trajectory: string); 机械手控制'+#13#10
+
+        );
+      end;
+
   else
     pgc1.ActivePage := ts1;
     mmo2.Clear;
@@ -740,7 +751,7 @@ end;
 
 procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-
+  DisconnectDobot();
   SysDev.Free;
   CameraSetForm.FilterGraph1.ClearGraph;
   CameraSetForm.FilterGraph1.Active := false;
@@ -805,6 +816,8 @@ end;
 procedure TMainForm.N5Click(Sender: TObject);
 begin
   dobotform.show;
+    if dobotform.WindowState = wsMinimized then //最小化则使其恢复
+    dobotform.WindowState := wsNormal
 end;
 
 procedure TMainForm.N6Click(Sender: TObject);

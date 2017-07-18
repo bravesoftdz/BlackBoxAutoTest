@@ -2357,7 +2357,7 @@ begin
   CapFName := '';
 end;
 
-procedure Dobot(trajectory: string);
+procedure Robot(trajectory: string);
 var
   i: integer;
   MultipleKeys: TStrings;
@@ -2592,6 +2592,6 @@ initialization
   RegisterHeader(0, 'function GetRGB(CameraID: Integer; x, y: Integer; RGB: string):Boolean;', @GetRGB);
   RegisterHeader(0, 'procedure TestRecord(path:string)', @TestRecord);
   RegisterHeader(0, 'procedure StopRecord();', @StopRecord);
-  RegisterHeader(0, 'procedure Dobot(trajectory: string); ', @Dobot);
+  RegisterHeader(0, 'procedure Robot(trajectory: string); ', @Robot);
 end.
 

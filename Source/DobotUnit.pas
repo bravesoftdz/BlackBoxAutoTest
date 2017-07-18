@@ -98,9 +98,6 @@ uses
 
 
 procedure TDobotForm.ConnectDobotClick(Sender: TObject);
-var
-i:integer;
-j:integer;
 begin
    StartDobot();
 end;

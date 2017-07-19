@@ -16,10 +16,10 @@ object DobotForm: TDobotForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 152
-    Top = 69
-    Width = 3
-    Height = 13
+    Left = 136
+    Top = 32
+    Width = 89
+    Height = 18
   end
   object ConnectDobot: TButton
     Left = 40
@@ -31,8 +31,8 @@ object DobotForm: TDobotForm
     OnClick = ConnectDobotClick
   end
   object Dobot_Home: TButton
-    Left = 152
-    Top = 64
+    Left = 40
+    Top = 104
     Width = 75
     Height = 25
     Caption = 'Home'
@@ -47,8 +47,8 @@ object DobotForm: TDobotForm
     TabOrder = 2
   end
   object Dobot_Record: TButton
-    Left = 152
-    Top = 24
+    Left = 136
+    Top = 104
     Width = 75
     Height = 25
     Caption = 'Record'
@@ -56,8 +56,8 @@ object DobotForm: TDobotForm
     OnClick = Dobot_RecordClick
   end
   object Run: TButton
-    Left = 256
-    Top = 24
+    Left = 232
+    Top = 104
     Width = 75
     Height = 25
     Caption = 'Run'
@@ -196,17 +196,36 @@ object DobotForm: TDobotForm
     OnClick = Button9Click
   end
   object Button10: TButton
-    Left = 256
-    Top = 64
+    Left = 320
+    Top = 104
     Width = 75
     Height = 25
     Caption = 'Clear'
     TabOrder = 19
     OnClick = Button10Click
   end
+  object edt1: TEdit
+    Left = 352
+    Top = 64
+    Width = 65
+    Height = 21
+    TabOrder = 20
+    Text = '30'
+  end
+  object ScrollBar1: TScrollBar
+    Left = 128
+    Top = 67
+    Width = 209
+    Height = 16
+    Min = 1
+    PageSize = 0
+    Position = 30
+    TabOrder = 21
+    OnChange = ScrollBar1Change
+  end
   object PopupMenu1: TPopupMenu
-    Left = 376
-    Top = 24
+    Left = 488
+    Top = 160
     object delete1: TMenuItem
       Caption = 'delete'
       OnClick = delete1Click

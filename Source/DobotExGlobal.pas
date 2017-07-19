@@ -47,8 +47,8 @@ begin
      cpbsParam.rAcceleration := 100;
      SetPTPCoordinateParams(cpbsParam, false, cmdIndex);
 
-     pbdParam.velocityRatio := 30;
-     pbdParam.accelerationRatio := 30;
+     pbdParam.velocityRatio := 30; //   30
+     pbdParam.accelerationRatio := 30; //  30
      SetPTPCommonParams(pbdParam, false, cmdIndex);
 end;
 
@@ -62,8 +62,9 @@ begin
     if result=Integer(DobotCommunicate_NoError)then
     begin
       DobotForm.label1.caption := 'Connect success';
+      isconected :=True;
       InitDobot();
-	  exit;
+	    exit;
     end;
       DobotForm.label1.caption := 'Connect error';
 end;

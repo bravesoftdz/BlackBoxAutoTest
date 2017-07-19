@@ -36,6 +36,8 @@ type
     Button9: TButton;
     Label1: TLabel;
     Button10: TButton;
+    edt1: TEdit;
+    ScrollBar1: TScrollBar;
     procedure ConnectDobotClick(Sender: TObject);
     procedure Dobot_RecordClick(Sender: TObject);
     procedure RunClick(Sender: TObject);
@@ -77,6 +79,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure Button9Click(Sender: TObject);
     procedure Button10Click(Sender: TObject);
+    procedure ScrollBar1Change(Sender: TObject);
     //procedure StringGridDrawCell(Sender: TObject;ACol,ARow:Integer;
           //Rect:TRect;State:TGridDrawState);
    //procedure Dobot_Timer_PoseTimer(Sender: TObject);
@@ -89,7 +92,7 @@ type
 var
   DobotForm: TDobotForm;
   x_s,y_s,z_s,r_s: string;
-
+  isconected:Boolean;
 implementation
 
 uses
@@ -108,7 +111,8 @@ procedure TDobotForm.Dobot_RecordClick(Sender: TObject);
 var
 dobotPose : POSE;
 begin
-   //Timer1.Enabled := True;
+    if not isconected then
+      Exit;
    GetPose(dobotPose);
  DobotForm.Memo1.Lines.Add(FloatToStrF(dobotPose.x,ffNumber,5,2) + ',' + FloatToStrF(dobotPose.y,ffNumber,5,2)+ ',' +
                            FloatToStrF(dobotPose.z,ffNumber,5,2)+',' + FloatToStrF(dobotPose.r,ffNumber,5,2))  ;
@@ -141,6 +145,8 @@ var
   styleMode  :PTPMode;
   SplitStr : String;
 begin
+      if not isconected then
+      Exit;
    //StringGrid1.Row :=1;
    for i:=1 to StringGrid1.RowCount-1 do
    begin
@@ -158,6 +164,8 @@ end;
 
 procedure TDobotForm.Dobot_HomeClick(Sender: TObject);
 begin
+      if not isconected then
+      Exit;
    RestDobot();
 end;
 
@@ -325,12 +333,27 @@ end;
 procedure TDobotForm.Button9Click(Sender: TObject);
 begin
     DisconnectDobot();
+    isconected:=False;
     DobotForm.label1.caption := 'Connect error';
 end;
 
 procedure TDobotForm.Button10Click(Sender: TObject);
 begin
   Memo1.Clear;
+end;
+
+procedure TDobotForm.ScrollBar1Change(Sender: TObject);
+var
+     pbdParam:PTPCommonParams ;
+      cmdIndex:int64;
+begin
+    if not isconected then
+      Exit;
+    cmdIndex :=0;
+     pbdParam.velocityRatio := ScrollBar1.Position; //   30
+     pbdParam.accelerationRatio := 100; //  30
+     SetPTPCommonParams(pbdParam, false, cmdIndex);
+     edt1.Text := IntToStr(ScrollBar1.Position);
 end;
 
 end.

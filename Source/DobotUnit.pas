@@ -21,7 +21,6 @@ type
     Edit2: TEdit;
     Edit3: TEdit;
     Edit4: TEdit;
-    Timer1: TTimer;
     StringGrid1: TStringGrid;
     PopupMenu1: TPopupMenu;
     delete1: TMenuItem;
@@ -35,6 +34,7 @@ type
     Button8: TButton;
     Button1: TButton;
     Button9: TButton;
+    Label1: TLabel;
     procedure ConnectDobotClick(Sender: TObject);
     procedure Dobot_RecordClick(Sender: TObject);
     procedure RunClick(Sender: TObject);

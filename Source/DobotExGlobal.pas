@@ -16,6 +16,9 @@ var
 
 implementation
 
+uses
+  Unit1, DobotUnit;
+
 procedure InitDobot();
 var
    DobotjogJointParams:JOGJOINTPARAMS;
@@ -58,14 +61,15 @@ begin
     result := ConnectDobot('',baud);
     if result=Integer(DobotCommunicate_NoError)then
     begin
+      DobotForm.label1.caption := 'Connect success';
       InitDobot();
     end;
+      DobotForm.label1.caption := 'Connect error';
 end;
 
 function DobotPTP(style:Byte;x: double;y: double;z: double; r: double):LongInt;
 var
 pdbCmd:PTPCmd ;
-p:pPTPCMD;
 cmdIndex :int64;
 ret :integer;
 begin
@@ -75,13 +79,6 @@ begin
   pdbCmd.y := y;
   pdbCmd.z := z;
   pdbCmd.r := r;
-
-//  p.ptpMode := style;
-//  p.x := x;
-//    p.y := y;
-//      p.z := z;
-//        p.r := r;
-
 
   while true do
   begin

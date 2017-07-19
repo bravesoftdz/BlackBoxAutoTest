@@ -1,6 +1,6 @@
 object DobotForm: TDobotForm
-  Left = 273
-  Top = 2
+  Left = 276
+  Top = 138
   Width = 989
   Height = 677
   Caption = 'DobotForm'
@@ -15,6 +15,12 @@ object DobotForm: TDobotForm
   OnCreate = InitStringGrid
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 152
+    Top = 69
+    Width = 105
+    Height = 20
+  end
   object ConnectDobot: TButton
     Left = 40
     Top = 24
@@ -190,11 +196,6 @@ object DobotForm: TDobotForm
     Caption = 'Disconnect'
     TabOrder = 18
     OnClick = Button9Click
-  end
-  object Timer1: TTimer
-    OnTimer = Timer1Timer
-    Left = 440
-    Top = 24
   end
   object PopupMenu1: TPopupMenu
     Left = 376

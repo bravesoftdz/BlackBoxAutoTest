@@ -204,7 +204,6 @@ begin
   TrayIcon1.Icon :=Application.Icon;
 //  SetComThread.Create(False);
   SetCom.Create(False);
-  StartDobot();
 end;
 
 procedure TMainForm.MeuExitClick(Sender: TObject);

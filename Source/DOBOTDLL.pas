@@ -15,65 +15,65 @@ uses
   Windows,DOBOTTYPE;
 
 function  ConnectDobot(const portName: PChar;
-                         baudrate: Word): Integer cdecl;external 'DOBOTDLL.DLL';
-function  SetCmdTimeout(cmdTimeout: Word): Integer cdecl;external 'DOBOTDLL.DLL';
+                         baudrate: DWORD): Integer cdecl;external 'DOBOTDLL.DLL';
+function  SetCmdTimeout(cmdTimeout: DWORD): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function  DisconnectDobot: Integer cdecl;external 'DOBOTDLL.DLL';
 
 
 function SetPTPCoordinateParams(var ptpCoordinateParams: PTPCOORDINATEPARAMS;
-                                   isQueued: Bool;
+                                   isQueued: Boolean;
                                    var queuedCmdIndex: int64): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function SetPTPCommonParams(var ptpCommonParams: PTPCOMMONPARAMS;
-                            isQueued: Bool;
+                            isQueued: Boolean;
                             var queuedCmdIndex: int64): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function SetPTPJointParams(var ptpJointParams: PTPJOINTPARAMS;
-                              isQueued: Bool;
+                              isQueued: Boolean;
                               var queuedCmdIndex:int64): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function GetPTPJointParams(var ptpJointParams: PTPJOINTPARAMS): Integer cdecl;external 'DOBOTDLL.DLL';
 
-function SetPTPCmd(var ptpCmd: PTPCMD; isQueued: Bool;  var queuedCmdIndex: int64): Integer cdecl;external 'DOBOTDLL.DLL';
+function SetPTPCmd(var ptpCmd: PTPCMD; isQueued: Boolean;  var queuedCmdIndex: int64): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function GetPose(var pose: POSE): Integer cdecl;external 'DOBOTDLL.DLL';
 
-function ResetPose(manual: Bool;
+function ResetPose(manual: Boolean;
                       rearArmAngle: Single;
                       frontArmAngle: Single):Integer cdecl;external 'DOBOTDLL.DLL';
 
 function SetHOMEParams(var homeParams: HOMEPARAMS;
-                          isQueued: Bool;
+                          isQueued: Boolean;
                           var queuedCmdIndex: int64):Integer cdecl;external 'DOBOTDLL.DLL';
 
 function GetHOMEParams(var homeParams: HOMEPARAMS):Integer cdecl;external 'DOBOTDLL.DLL';
 
 function SetHOMECmd(var homeCmd: HOMECMD;
-                       isQueued: Bool;
+                       isQueued: Boolean;
                        var queuedCmdIndex: int64):Integer cdecl;external 'DOBOTDLL.DLL';
 
 
 {/// JOG functions }
 function SetJOGJointParams(var jointJogParams: JOGJOINTPARAMS;
-                              isQueued: Bool; 
+                              isQueued: Boolean; 
                               var queuedCmdIndex: int64): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function GetJOGJointParams(var jointJogParams: JOGJOINTPARAMS): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function SetJOGCoordinateParams(var coordinateJogParams: JOGCOORDINATEPARAMS;
-                                   isQueued: Bool;
+                                   isQueued: Boolean;
                                    var queuedCmdIndex:int64): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function GetJOGCoordinateParams(var coordinateJogParams: JOGCOORDINATEPARAMS): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function SetJOGCommonParams(var jogCommonParams: JOGCOMMONPARAMS;
-                               isQueued: Bool;
+                               isQueued: Boolean;
                                var queuedCmdIndex: int64):Integer cdecl ;external 'DOBOTDLL.DLL';
 function GetJOGCommonParams(var jogCommonParams: JOGCOMMONPARAMS): Integer cdecl;external 'DOBOTDLL.DLL';
 
 function SetJOGCmd(var jogCmd: JOGCMD;
-                      isQueued: Bool;
+                      isQueued: Boolean;
                       var queuedCmdIndex:int64): Integer cdecl ;external'DOBOTDLL.DLL';
 
 

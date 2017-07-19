@@ -17,7 +17,7 @@ type
 implementation
 
 uses
-  ExGlobal, PComm, Unit1, SysUtils, Forms;
+  ExGlobal, PComm, Unit1, SysUtils, Forms,DobotExGlobal;
 
 { SetCom }
 procedure SetCom.Myfun;
@@ -52,6 +52,7 @@ begin
           Com1Open := True;
           MainForm.SwitchMenu();
           MainForm.mmo1.Lines.Add('找到控制器，串口设置成功！');
+          StartDobot();
           exit; // 退出线程
         end
         else
@@ -68,6 +69,7 @@ begin
     end;
   end;
   MainForm.mmo1.Lines.Add('未找到控制器，请检查串口连接是否正常！');
+  StartDobot();
 end;
 
 procedure SetCom.Execute;

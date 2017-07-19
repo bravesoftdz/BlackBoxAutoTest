@@ -18,8 +18,8 @@ object DobotForm: TDobotForm
   object Label1: TLabel
     Left = 152
     Top = 69
-    Width = 105
-    Height = 20
+    Width = 3
+    Height = 13
   end
   object ConnectDobot: TButton
     Left = 40
@@ -31,8 +31,8 @@ object DobotForm: TDobotForm
     OnClick = ConnectDobotClick
   end
   object Dobot_Home: TButton
-    Left = 40
-    Top = 104
+    Left = 152
+    Top = 64
     Width = 75
     Height = 25
     Caption = 'Home'
@@ -44,8 +44,6 @@ object DobotForm: TDobotForm
     Top = 184
     Width = 417
     Height = 406
-    Lines.Strings = (
-      'Memo1')
     TabOrder = 2
   end
   object Dobot_Record: TButton
@@ -196,6 +194,15 @@ object DobotForm: TDobotForm
     Caption = 'Disconnect'
     TabOrder = 18
     OnClick = Button9Click
+  end
+  object Button10: TButton
+    Left = 256
+    Top = 64
+    Width = 75
+    Height = 25
+    Caption = 'Clear'
+    TabOrder = 19
+    OnClick = Button10Click
   end
   object PopupMenu1: TPopupMenu
     Left = 376

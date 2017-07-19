@@ -35,6 +35,7 @@ type
     Button1: TButton;
     Button9: TButton;
     Label1: TLabel;
+    Button10: TButton;
     procedure ConnectDobotClick(Sender: TObject);
     procedure Dobot_RecordClick(Sender: TObject);
     procedure RunClick(Sender: TObject);
@@ -75,6 +76,7 @@ type
     procedure Button8MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Button9Click(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
     //procedure StringGridDrawCell(Sender: TObject;ACol,ARow:Integer;
           //Rect:TRect;State:TGridDrawState);
    //procedure Dobot_Timer_PoseTimer(Sender: TObject);
@@ -323,6 +325,12 @@ end;
 procedure TDobotForm.Button9Click(Sender: TObject);
 begin
     DisconnectDobot();
+    DobotForm.label1.caption := 'Connect error';
+end;
+
+procedure TDobotForm.Button10Click(Sender: TObject);
+begin
+  Memo1.Clear;
 end;
 
 end.

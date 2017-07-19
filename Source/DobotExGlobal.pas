@@ -63,6 +63,7 @@ begin
     begin
       DobotForm.label1.caption := 'Connect success';
       InitDobot();
+	  exit;
     end;
       DobotForm.label1.caption := 'Connect error';
 end;
